@@ -15,6 +15,7 @@ semanticdb
 tramp
 .\#*
 
+# custom variables
 emacs-custom.el
 
 # Org-mode
