@@ -48,6 +48,9 @@
 (global-set-key (kbd "C-x C-k") 'delete-other-windows)
 (global-set-key (kbd "C-x M-s") 'save-buffers-kill-emacs)
 
+;; ibuffer buffer list
+(global-set-key (kbd "C-x B") 'ibuffer-list-buffers)
+
 (message "init-defaults loaded")
 (provide 'init-defaults)
 ;;; setup-general.el ends here

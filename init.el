@@ -28,9 +28,12 @@
 
 ;; submodules that may or may not be loaded
 (require 'init-submodules)
+(require 'init-modes)
 (require 'init-helm)
 (require 'init-company)
 (require 'init-magit)
+
+(require 'init-exwm) ;; the special cases
 
 ;; One of the last things to do.
 (load custom-file)
