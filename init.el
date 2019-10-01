@@ -28,12 +28,18 @@
 
 ;; submodules that may or may not be loaded
 (require 'init-submodules)
+(message "init-submodules")
 (require 'init-modes)
+(message "init-modes")
 (require 'init-helm)
+(message "init-helm")
 (require 'init-company)
+(message "init-company")
 (require 'init-magit)
+(message "init-magit")
 
 (require 'init-exwm) ;; the special cases
+(message "init-exwm")
 
 ;; One of the last things to do.
 (load custom-file)

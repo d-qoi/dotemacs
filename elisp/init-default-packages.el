@@ -6,7 +6,7 @@
 (setq linum-format "%d|")
 
 (defvar linum-disabled-modes
-  '(term-mode help-mode exwm-mode))
+  '(term-mode help-mode exwm-mode image-mode))
 
 (defun d-qoi/linum-disable-function ()
   "Function for the hook for after major mode change."

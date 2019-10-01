@@ -11,23 +11,38 @@
   :config
   (require 'exwm-config)
   (setq exwm-workspace-number 9)
-  
+
   ;; Make class name the buffer name
   (add-hook 'exwm-update-class-hook
             (lambda ()
               (exwm-workspace-rename-buffer exwm-class-name)))
 
-  ;; 's-r': Reset
-  (exwm-input-set-key (kbd "s-r") #'exwm-reset)
-  ;; 's-w': Switch workspace
-  (exwm-input-set-key (kbd "s-w") #'exwm-workspace-switch)
 
   ;; 's-N': Switch to certain workspace
-  (dotimes (i 10)
-    (exwm-input-set-key (kbd (format "s-%d" i))
-                        `(lambda ()
+  ;; (dotimes (i 10)
+  ;;   (exwm-input-set-key (kbd (format "s-%d" i))
+  ;;                       `(lambda ()
+  ;;                          (interactive)
+  ;;                          (exwm-workspace-switch-create ,i))))
+
+  (setq exwm-input-global-keys
+        `(
+          ;; 's-r': Reset (to line-mode).
+          ([?\s-r] . exwm-reset)
+          ;; 's-w': Switch workspace.
+          ([?\s-w] . exwm-workspace-switch)
+          ;; 's-d': Launch application.
+          ([?\s-d] . (lambda (command)
+                       (interactive (list (read-shell-command "$ ")))
+                       (start-process-shell-command command nil command)))
+          ([?\s-l] . (lambda () (interactive)(start-process "" nil "loginctl" "lock-session")))
+           ;; 's-N': Switch to certain workspace.
+           ,@(mapcar (lambda (i)
+                       `(,(kbd (format "s-%d" i)) .
+                         (lambda ()
                            (interactive)
                            (exwm-workspace-switch-create ,i))))
+                     (number-sequence 0 9))))
   ;; 's-d': Launch application
   (exwm-input-set-key (kbd "s-d")
                       (lambda (command)
@@ -54,7 +69,7 @@
   (require 'exwm-randr)
   (defvar exwm-randr-workspace-output-plist)
   (setq exwm-randr-workspace-output-plist '(0 "VGA1"))
-  (add-hook 'exwm-randr-screen-change-hood
+  (add-hook 'exwm-randr-screen-change-hook
             (lambda ()
               (start-process-shell-command
                "xrandr" nil "xrandr --output VGA1 --left-of LVDS1 --auto")))
