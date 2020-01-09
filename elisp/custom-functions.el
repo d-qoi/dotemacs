@@ -35,5 +35,6 @@ will be killed."
           (kill-buffer buf)
           (message "Killed %s" filename))))))
 
-(message "custom-functions loaded")
+
+
 (provide 'custom-functions)

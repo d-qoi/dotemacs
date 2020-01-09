@@ -4,3 +4,6 @@
 [submodule "xelb"]
 	path = xelb
 	url = https://github.com/ch11ng/xelb.git
+[submodule "site-elisp/aweshell"]
+	path = site-elisp/aweshell
+	url = https://github.com/manateelazycat/aweshell.git
