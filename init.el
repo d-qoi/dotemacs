@@ -74,6 +74,10 @@
 (require 'init-killring-undo)
 (require 'init-shells)
 
+(require 'init-editing)
+(require 'init-flycheck)
+(require 'init-lsp)
+
 (require 'init-magit)
 
 ;; submodules that may or may not be loaded
