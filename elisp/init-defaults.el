@@ -28,13 +28,6 @@
 ;; truncating liens
 (setq-default truncate-lines t)
 
-;; setup GDB
-(setq
- ;; use gdb-many-windows by default
- gdb-many-windows t
- ;; Non-nil means display source file containing the main routine at startup
- gdb-show-main t)
-
 ;; activate whitespace-mode to view all whitespace characters
 (global-set-key (kbd "C-c w") 'whitespace-mode)
 
