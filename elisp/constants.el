@@ -76,7 +76,7 @@
        (not (equal (shell-command-to-string "pip freeze | grep '^PyQt\\|PyQtWebEngine'") "")))
   "Check basic requirements for EAF to run.")
 
-(defconst *python-use-lsp* t
+(defconst *python-use-lsp* nil
   "Do we use LSP or Anaconda")
 
 (provide 'constants)

@@ -17,12 +17,18 @@
   :after python)
 
 
-(use-package lsp-python-ms
-  :ensure t
-  :after lsp-mode python pyvenv-mode
-  :if (and (or *python3* *python*) *python-use-lsp*)
-  :custom
-  (lsp-python-executable-cmd "python3"))
+;; (use-package lsp-python-ms
+;;   :ensure t
+;;   :if *python-use-lsp*
+;;   :hook (python-mode . (lambda ()
+;;                               (require 'lsp-python-ms)
+;;                               (lsp)))
+;;   :custom
+;;   (lsp-python-executable-cmd "python3")
+;;   (lsp-python-ms-executable (concat user-emacs-directory
+;;                                     "site-elisp/python-language-server/output/bin/Release/Microsoft.Python.LanguageServer")))
+
+
 
 (use-package anaconda-mode
   :ensure t

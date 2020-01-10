@@ -66,4 +66,9 @@
   ;; References whose filenames are under this project
   (lsp-ui-peek-find-references nil (list :folders (vector (projectile-project-root)))))
 
+;; (use-package ccls-code-lens-mode
+;;   :ensure t
+;;   :if *ccls*
+;;   :after ccls)
+
 (provide 'init-prog-c)

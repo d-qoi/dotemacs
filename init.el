@@ -73,6 +73,7 @@
 (require 'init-whichkey)
 (require 'init-killring-undo)
 (require 'init-shells)
+(require 'init-searching)
 
 (require 'init-editing)
 (require 'init-flycheck)

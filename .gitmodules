@@ -7,3 +7,6 @@
 [submodule "site-elisp/aweshell"]
 	path = site-elisp/aweshell
 	url = https://github.com/manateelazycat/aweshell.git
+[submodule "site-elisp/python-language-server"]
+	path = site-elisp/python-language-server
+	url = https://github.com/Microsoft/python-language-server.git
