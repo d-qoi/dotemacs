@@ -13,7 +13,9 @@ recentf
 auto-save-list
 semanticdb
 tramp
+/transient/*
 .\#*
+
 
 # custom variables
 emacs-custom.el
@@ -68,3 +70,9 @@ annotations
 # projects and things
 projectile-bookmarks.*
 ede-projects.el
+
+# anaconda mode
+/anaconda-mode/
+
+# lsp
+.lsp-session*
