@@ -41,6 +41,10 @@
   (executable-find "gtags")
   "Do we have Gnu Globals")
 
+(defconst *ccls*
+  (executable-find "ccls")
+  "Do we have ccls")
+
 (defconst *clangd*
   (or (executable-find "clangd")  ;; usually
       (executable-find "/usr/local/opt/llvm/bin/clangd"))  ;; macOS
@@ -49,6 +53,14 @@
 (defconst *gcc*
   (executable-find "gcc")
   "Do we have gcc?")
+
+(defconst *clang*
+  (executable-find "clang")
+  "Do we have clang")
+
+(defconst *cppcheck*
+  (executable-find "cppcheck")
+  "Do we have cppcheck")
 
 (defconst *git*
   (executable-find "git")
@@ -63,5 +75,8 @@
        (executable-find "pip")
        (not (equal (shell-command-to-string "pip freeze | grep '^PyQt\\|PyQtWebEngine'") "")))
   "Check basic requirements for EAF to run.")
+
+(defconst *python-use-lsp* t
+  "Do we use LSP or Anaconda")
 
 (provide 'constants)

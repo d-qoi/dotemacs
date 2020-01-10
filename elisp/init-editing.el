@@ -33,6 +33,7 @@
 (use-package company
   :ensure t
   :diminish company-mode
+  :after yasnippet
   :hook ((prog-mode LaTeX-mode latex-mode ess-r-mode) . company-mode)
   :bind
   (:map company-active-map
@@ -68,5 +69,11 @@ If failed try to complete the common part with `company-complete-common'"
                        (eq old-tick (buffer-chars-modified-tick)))
               (company-complete-common))))
       (company-complete-common))))
+
+(use-package company-lsp
+  :ensure t
+  :defer t
+  :after (:all company lsp-mode)
+  :custom (company-lsp-cache-candidates 'auto))
 
 (provide 'init-editing)

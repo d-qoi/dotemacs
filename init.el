@@ -77,6 +77,8 @@
 (require 'init-editing)
 (require 'init-flycheck)
 (require 'init-lsp)
+(require 'init-prog-c)
+(require 'init-prog-py)
 
 (require 'init-magit)
 
