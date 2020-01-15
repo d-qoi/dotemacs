@@ -11,4 +11,22 @@
   :init
   (setq ag-reuse-window t))
 
+(use-package anzu
+  :ensure t
+  :diminish
+  :bind
+  (("C-z q r" . anzu-query-replace)
+   ("C-z q R" . anzu-query-replace-regexp)
+   ("C-z q c" . anzu-replace-at-cursor-thing))
+  :config
+  (global-anzu-mode 1))
+
+(use-package wgrep
+  :ensure t)
+
+(use-package winnow
+  :ensure t
+  :hook ag-mode)
+
 (provide 'init-searching)
+

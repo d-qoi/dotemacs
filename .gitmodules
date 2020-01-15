@@ -10,3 +10,9 @@
 [submodule "site-elisp/python-language-server"]
 	path = site-elisp/python-language-server
 	url = https://github.com/Microsoft/python-language-server.git
+[submodule "site-elisp/jinja2-mode"]
+	path = site-elisp/jinja2-mode
+	url = https://github.com/paradoxxxzero/jinja2-mode.git
+[submodule "site-elisp/yaml-mode"]
+	path = site-elisp/yaml-mode
+	url = https://github.com/yoshiki/yaml-mode

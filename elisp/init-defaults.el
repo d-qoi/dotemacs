@@ -69,5 +69,9 @@
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "M-z"))
 
+;; multiple frames
+(global-set-key (kbd "C-x O") 'other-frame)
+(global-set-key (kbd "C-z n") 'make-frame)
+
 (provide 'init-defaults)
 ;;; setup-general.el ends here

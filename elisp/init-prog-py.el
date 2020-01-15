@@ -38,4 +38,9 @@
   :hook ((python-mode-hook . anaconda-mode)
          (python-mode-hook . anaconda-eldoc-mode)))
 
+(use-package python-black
+  :ensure t
+  :demand t
+  :after python)
+
 (provide 'init-prog-py)

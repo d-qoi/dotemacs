@@ -1,6 +1,6 @@
 ;;; init.el --- -*- lexical-binding: t -*-
 
-(setq debug-on-error t)
+;;(setq debug-on-error nil)
 
 (setq custom-file "~/.emacs.d/emacs-custom.el")
 (add-to-list 'load-path "~/.emacs.d/elisp")
@@ -69,6 +69,7 @@
 (require 'init-linum)
 
 ;; packages that require config
+(require 'init-ati)
 (require 'init-ivy)
 (require 'init-whichkey)
 (require 'init-killring-undo)
@@ -80,6 +81,7 @@
 (require 'init-lsp)
 (require 'init-prog-c)
 (require 'init-prog-py)
+(require 'init-prog-markup-langs)
 
 (require 'init-magit)
 
@@ -90,5 +92,5 @@
 (load custom-file)
 
 ;; and a prompt to save all unsaved customizations
-(add-hook 'kill-emacs-query-functions
-	  'custom-prompt-customize-unsaved-options)
+;(add-hook 'kill-emacs-query-functions
+;	  'custom-prompt-customize-unsaved-options)

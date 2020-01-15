@@ -8,4 +8,10 @@
   :custom
   (dired-dwim-target t))
 
+(use-package neotree
+  :ensure t
+  :bind ("C-z n" . neotree-toggle)
+  :custom
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
+
 (provide 'init-dired)
