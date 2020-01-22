@@ -11,7 +11,7 @@
 (use-package neotree
   :ensure t
   :bind ("C-z n" . neotree-toggle)
-  :custom
+  :config
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
 
 (provide 'init-dired)

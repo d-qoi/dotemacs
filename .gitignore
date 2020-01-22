@@ -15,7 +15,7 @@ semanticdb
 tramp
 /transient/*
 .\#*
-
+bookmarks
 
 # custom variables
 emacs-custom.el

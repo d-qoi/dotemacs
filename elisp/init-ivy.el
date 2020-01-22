@@ -38,7 +38,8 @@
 (use-package swiper
   :ensure t
   :requires ivy
-  :bind (("C-s" . swiper-isearch)))
+  :bind (("C-s" . swiper-isearch)
+         ("C-r" . swiper-isearch-backward)))
 
 
 (use-package amx

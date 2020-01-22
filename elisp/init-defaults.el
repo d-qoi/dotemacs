@@ -50,6 +50,7 @@
 (require 'recentf)
 (recentf-mode 1)
 (setq recentf-max-menu-items 25)
+(global-set-key (kbd "C-c C-r") 'recentf-open-files)
 
 ;; binding functions
 (global-set-key (kbd "C-x C-k") 'delete-other-windows)
@@ -71,7 +72,10 @@
 
 ;; multiple frames
 (global-set-key (kbd "C-x O") 'other-frame)
-(global-set-key (kbd "C-z n") 'make-frame)
+(global-set-key (kbd "C-z f") 'make-frame)
+
+;; mark
+(global-set-key (kbd "C-z m") (lambda () (interactive) (push-mark)))
 
 (provide 'init-defaults)
 ;;; setup-general.el ends here

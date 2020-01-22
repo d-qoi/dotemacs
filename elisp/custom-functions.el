@@ -1,11 +1,11 @@
-;;; package --- custom functions that don't have another place to go
+;;; package --- custom functions that don't have another place to go -*- lexical-bindings -*-
 
 ;;; Code:
 
 (defun revert-all-file-buffer ()
   "Refresh all open files buffers without confirmation.
-Buffers in modified (not yet saved) state in emacs will not be reverted. They
-will be reverted though if they were modified outside emacs.
+Buffers in modified (not yet saved) state in Emacs will not be reverted.  They
+will be reverted though if they were modified outside Emacs.
 Buffers visiting files which do not exist any more or are no longer readable
 will be killed."
   (interactive)
@@ -26,7 +26,7 @@ will be killed."
   (message "Finnished reverting all buffers"))
 
 (defun kill-all-file-buffers ()
-  "Kills all file buffers"
+  "Kill all file buffers."
   (interactive)
   (dolist (buf (buffer-list))
     (let ((filename (buffer-file-name buf)))
@@ -35,6 +35,20 @@ will be killed."
           (kill-buffer buf)
           (message "Killed %s" filename))))))
 
-
+(defun load-ssh-abbrev ()
+  "Create Dired Abbreviations from ~/.ssh/config.
+The ssh/config file will needs to be layed out in specific format to allow
+the regex to operate properly.  Advice should be added next."
+  (interactive)
+  (with-temp-buffer
+    (insert-file-contents "~/.ssh/config")
+    (while (re-search-forward "host \\(.+\\)\n\\W+hostname \\(.+\\)\n\\W+ user \\(.+\\)" (point-max) t 1)
+      (let ((host (upcase (match-string 1)))
+            (hostname (match-string 2))
+            (username (match-string 3)))
+        (add-to-list 'directory-abbrev-alist
+                     (cons (format "^/%s" host)
+                           (format "/ssh:%s@%s:" username hostname)))))))
 
 (provide 'custom-functions)
+

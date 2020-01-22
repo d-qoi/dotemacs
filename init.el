@@ -62,6 +62,7 @@
 ;; Emacs customizations that do not require installations
 (require 'init-defaults)
 (require 'custom-functions)
+;;(load-ssh-hostname-envvar)
 
 (require 'init-dired)
 (require 'dired+) ;; better dired
@@ -75,7 +76,7 @@
 (require 'init-killring-undo)
 (require 'init-shells)
 (require 'init-searching)
-
+(require 'init-multi-cursors)
 (require 'init-editing)
 (require 'init-flycheck)
 (require 'init-lsp)

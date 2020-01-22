@@ -7,9 +7,7 @@
   (("C-z a g" . ag)
    ("C-z a f" . ag-files)
    ("C-z a r" . ag-regex)
-   ("C-z a p" . ag-project))
-  :init
-  (setq ag-reuse-window t))
+   ("C-z a p" . ag-project)))
 
 (use-package anzu
   :ensure t
@@ -26,7 +24,8 @@
 
 (use-package winnow
   :ensure t
-  :hook ag-mode)
+  :config
+  (add-hook 'ag-mode-hook 'winnow-mode))
 
 (provide 'init-searching)
 
