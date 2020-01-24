@@ -7,7 +7,14 @@
   (("C-z a g" . ag)
    ("C-z a f" . ag-files)
    ("C-z a r" . ag-regex)
-   ("C-z a p" . ag-project)))
+   ("C-z a p" . ag-project)
+   ("C-z a ." . d-qoi/ag-from-point))
+  :config
+  (defun d-qoi/ag-from-point (directory)
+    (let ((sym (thing-at-point 'symbol t)))
+      (interactive (list (read-directory-name
+                          (format "%s in Directory: " sym))))
+      (ag/search sym directory))))
 
 (use-package anzu
   :ensure t
