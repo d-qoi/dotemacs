@@ -16,3 +16,9 @@
 [submodule "site-elisp/yaml-mode"]
 	path = site-elisp/yaml-mode
 	url = https://github.com/yoshiki/yaml-mode
+[submodule "site-elisp/Emacs-wgrep"]
+	path = site-elisp/Emacs-wgrep
+	url = https://github.com/mhayashi1120/Emacs-wgrep.git
+[submodule "site-elisp/p4.el"]
+	path = site-elisp/p4.el
+	url = https://github.com/gareth-rees/p4.el

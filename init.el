@@ -60,8 +60,8 @@
   :ensure t)
 
 ;; Emacs customizations that do not require installations
-(require 'init-defaults)
 (require 'custom-functions)
+(require 'init-defaults)
 ;;(load-ssh-hostname-envvar)
 
 (require 'init-dired)
@@ -84,10 +84,12 @@
 (require 'init-prog-py)
 (require 'init-prog-markup-langs)
 
-(require 'init-magit)
+(require 'init-version-control)
 
 ;; submodules that may or may not be loaded
 
+(if (file-exists-p (expand-file-name "site-customs.el" user-emacs-directory))
+    (load-file (expand-file-name "site-customs.el" user-emacs-directory)))
 
 ;; One of the last things to do.
 (load custom-file)

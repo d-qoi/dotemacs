@@ -41,6 +41,9 @@
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
 
+(when (fboundp 'winner-mode)
+  (winner-mode 1))
+
 ;; always helpful
 (display-time)
 
@@ -75,7 +78,10 @@
 (global-set-key (kbd "C-z f") 'make-frame)
 
 ;; mark
-(global-set-key (kbd "C-z m") (lambda () (interactive) (push-mark)))
+(global-set-key (kbd "C-z m") 'd-qoi/push-mark)
+
+;; revert buffer
+(global-set-key (kbd "C-z r") 'revert-buffer)
 
 (provide 'init-defaults)
 ;;; setup-general.el ends here

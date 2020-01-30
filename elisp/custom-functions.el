@@ -50,5 +50,10 @@ the regex to operate properly.  Advice should be added next."
                      (cons (format "^/%s" host)
                            (format "/ssh:%s@%s:" username hostname)))))))
 
+(defun d-qoi/push-mark ()
+  "Interactive 'push-mark'."
+  (interactive)
+  (push-mark))
+
 (provide 'custom-functions)
 
