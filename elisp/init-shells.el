@@ -7,6 +7,7 @@
   (("M-#" . aweshell-dedicated-toggle)))
 
 (use-package shell-here
+  :disabled
   :ensure t
   :bind ("M-~" . shell-here)
   :config
@@ -14,12 +15,15 @@
     (setq explicit-shell-file-name "/bin/bash")))
 
 (use-package term-keys
+  :disabled
+  :ensure t
   :if (not *sys/gui*)
   :config (term-keys-mode t)
   :custom
   (define-key term-mode-map (kbd "C-c C-j") 'term-line-mode))
 
 (use-package multi-term
+  :disabled
   :load-path (lambda () (expand-file-name "site-elisp" user-emacs-directory))
   :commands (multi-term)
   :bind
@@ -29,6 +33,9 @@
          ("C->" . multi-term-next)
          ("C-<" . multi-term-prev)))
   :custom
-  (multi-term-program (executable-find "bash")))
+  (add-to-list term-bind-key-alist '("C-x C-j" . term-line-mode))
+  (add-to-list term-bind-key-alist '("C-c C-k" . term-char-mode)))
+
+(global-key-binding (kbd "M-$") 'ansi-term)
 
 (provide 'init-shells)

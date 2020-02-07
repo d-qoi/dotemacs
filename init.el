@@ -83,6 +83,7 @@
 (require 'init-prog-c)
 (require 'init-prog-py)
 (require 'init-prog-markup-langs)
+(require 'init-adoc)
 
 (require 'init-version-control)
 

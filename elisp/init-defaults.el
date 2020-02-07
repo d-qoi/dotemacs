@@ -12,6 +12,9 @@
 ;; no bell
 (setq visible-bell t)
 
+;; tmm menues
+(setq tty-menu-open-use-tmm t)
+
 ;; for auto reloading
 (setq global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
@@ -82,6 +85,9 @@
 
 ;; revert buffer
 (global-set-key (kbd "C-z r") 'revert-buffer)
+
+;; ttm menu bind again
+(global-set-key (kbd "C-z t") 'tmm-menubar)
 
 (provide 'init-defaults)
 ;;; setup-general.el ends here
