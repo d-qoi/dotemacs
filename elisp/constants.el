@@ -62,6 +62,10 @@
   (executable-find "cppcheck")
   "Do we have cppcheck")
 
+(defconst *cflow*
+  (executable-find "cflow")
+  "Do we have cflow")
+
 (defconst *git*
   (executable-find "git")
   "Do we have git?")

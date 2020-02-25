@@ -48,12 +48,19 @@ the regex to operate properly.  Advice should be added next."
             (username (match-string 3)))
         (add-to-list 'directory-abbrev-alist
                      (cons (format "^/%s" host)
-                           (format "/ssh:%s@%s:" username hostname)))))))
+                           (format "/ssh:%s@%s:" username hostname)))
+        (message (format (format "^/%s" host)))))))
 
 (defun d-qoi/push-mark ()
   "Interactive 'push-mark'."
   (interactive)
   (push-mark))
+
+(defun d-qoi/remove-all-lines-with-spaces ()
+  (interactive)
+  (save-excursion
+    (beginning-of-buffer)
+    (flush-lines " ")))
 
 (provide 'custom-functions)
 

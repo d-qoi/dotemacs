@@ -60,7 +60,6 @@
   (company-show-numbers t)
   :config
   (unless *clangd* (delete 'company-clang company-backends))
-  (global-company-mode 1)
   (defun smarter-yas-expand-next-field-complete ()
     "Try to `yas-expand' and `yas-next-field' at current cursor position.
 
@@ -76,12 +75,16 @@ If failed try to complete the common part with `company-complete-common'"
             (when (and (eq old-point (point))
                        (eq old-tick (buffer-chars-modified-tick)))
               (company-complete-common))))
-      (company-complete-common))))
+      (company-complete-common)))
+  (add-hook 'after-init-hook 'global-company-mode))
 
 (use-package company-lsp
   :ensure t
   :defer t
   :after (:all company lsp-mode)
   :custom (company-lsp-cache-candidates 'auto))
+
+(use-package highlight
+  :ensure t)
 
 (provide 'init-editing)

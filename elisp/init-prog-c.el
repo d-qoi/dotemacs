@@ -71,4 +71,18 @@
 ;;   :if *ccls*
 ;;   :after ccls)
 
+(use-package xcscope
+  :ensure t
+  :if (or *global* *cscope*)
+  :init
+  ;; (if *global*
+  ;;     (setq cscope-program "gtags-cscope"))
+  (cscope-setup))
+
+(use-package cflow-mode
+  :if *cflow*
+  :init
+  (autoload 'cflow-mode "cflow-mode")
+  :mode "\\.cflow$")
+
 (provide 'init-prog-c)
