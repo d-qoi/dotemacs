@@ -9,6 +9,7 @@ ede-projects.el
 elpa/*
 eshell/*
 projectile-bookmarks.eld
+projectile.cache
 recentf
 auto-save-list
 semanticdb
@@ -76,3 +77,6 @@ ede-projects.el
 
 # lsp
 .lsp-session*
+
+# mc things
+.mc-lists.el

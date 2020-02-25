@@ -71,6 +71,7 @@
 
 ;; packages that require config
 (require 'init-ati)
+(require 'init-projectile)
 (require 'init-ivy)
 (require 'init-whichkey)
 (require 'init-killring-undo)
