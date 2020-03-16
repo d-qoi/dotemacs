@@ -73,7 +73,7 @@
 
 (use-package xcscope
   :ensure t
-  :if (or *global* *cscope*)
+  :if *cscope*
   :init
   ;; (if *global*
   ;;     (setq cscope-program "gtags-cscope"))
