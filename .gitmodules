@@ -22,3 +22,6 @@
 [submodule "site-elisp/p4.el"]
 	path = site-elisp/p4.el
 	url = https://github.com/gareth-rees/p4.el
+[submodule "site-elisp/distel"]
+	path = site-elisp/distel
+	url = https://github.com/massemanet/distel

@@ -79,12 +79,15 @@
 (require 'init-searching)
 (require 'init-multi-cursors)
 (require 'init-editing)
+(require 'init-company)
 (require 'init-flycheck)
 (require 'init-lsp)
 (require 'init-prog-c)
 (require 'init-prog-py)
 (require 'init-prog-markup-langs)
-(require 'init-adoc)
+(require 'init-prog-erlang)
+;; (require 'init-adoc)
+(require 'init-restclient)
 
 (require 'init-version-control)
 

@@ -6,6 +6,7 @@
   :bind ("C-x g" . magit-status))
 
 (use-package p4
+  :if *p4*
   :load-path (lambda () (expand-file-name "site-elisp/p4.el" user-emacs-directory))
   :custom (p4-open-in-changelist t)
   :config

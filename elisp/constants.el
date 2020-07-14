@@ -70,6 +70,10 @@
   (executable-find "git")
   "Do we have git?")
 
+(defconst *p4*
+  (executable-find "p4")
+  "Do we have perforce?")
+
 (defconst *pdflatex*
   (executable-find "pdflatex")
   "Do we have pdflatex?")
@@ -82,5 +86,9 @@
 
 (defconst *python-use-lsp* t
   "Do we use LSP or Anaconda")
+
+(defconst *erlang*
+  (executable-find "erl")
+  "Do we have erlang?")
 
 (provide 'constants)
