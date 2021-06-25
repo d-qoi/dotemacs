@@ -35,7 +35,7 @@
   :ensure t
   :after pyvenv
   :diminish
-  :if (not *python-use-lsp*)
+  ;;:if (not *lsp*)
   :hook ((python-mode-hook . anaconda-mode)
          (python-mode-hook . anaconda-eldoc-mode)))
 

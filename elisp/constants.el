@@ -47,8 +47,14 @@
 
 (defconst *clangd*
   (or (executable-find "clangd")  ;; usually
+      (or (executable-find "clangd-10") (executable-find "clangd-9") (executable-find "clangd-8")) ;; direct
       (executable-find "/usr/local/opt/llvm/bin/clangd"))  ;; macOS
   "Do we have clangd?")
+
+(if (and
+     (not *clangd*)
+     (or (executable-find "clangd-10") (executable-find "clangd-9") (executable-find "clangd-8")))
+    (warn "Make sure clangd is aliassed correctly"))
 
 (defconst *gcc*
   (executable-find "gcc")
@@ -80,7 +86,8 @@
        (not (equal (shell-command-to-string "pip freeze | grep '^PyQt\\|PyQtWebEngine'") "")))
   "Check basic requirements for EAF to run.")
 
-(defconst *python-use-lsp* t
-  "Do we use LSP or Anaconda")
+(defconst *lsp*
+  (or *ccls* *clangd*)
+  "Use lsp for any specific language.")
 
 (provide 'constants)

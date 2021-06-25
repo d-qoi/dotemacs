@@ -2,6 +2,7 @@
 
 (use-package projectile
   :ensure t
+  :disabled
   :init
   (setq projectile-project-root-files #'( ".projectile" )
         projectile-project-root-files-functions #'(projectile-root-top-down

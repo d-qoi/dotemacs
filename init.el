@@ -41,10 +41,11 @@
 ;; package setup
 (require 'package)
 (add-to-list 'package-archives
-         '("melpa" . "https://melpa.org/packages/") t)
+             '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives
              '("org" . "https://orgmode.org/elpa/") t)
 (package-initialize)
+;;(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (when (not package-archive-contents)
   (package-refresh-contents))
 (unless (package-installed-p 'gnu-elpa-keyring-update)
@@ -68,6 +69,8 @@
 (require 'dired+) ;; better dired
 
 (require 'init-linum)
+
+(require 'init-org)
 
 ;; packages that require config
 (require 'init-ati)
@@ -93,9 +96,25 @@
 (if (file-exists-p (expand-file-name "site-customs.el" user-emacs-directory))
     (load-file (expand-file-name "site-customs.el" user-emacs-directory)))
 
+
+;; Enable EXWM or don't enable EXWM
+(when (get-buffer "*window-manager*")
+  (kill-buffer "*window-manager*"))
+(when (get-buffer "*window-manager-error*")
+  (kill-buffer "*window-manager-error*"))
+(when (executable-find "wmctrl")
+  (shell-command "wmctrl -m ; echo $?" "*window-manager*" "*window-manager-error*"))
+
+;; if there was an error detecting the window manager, initialize EXWM
+(when (and (get-buffer "*window-manager-error*")
+           (eq window-system 'x))
+  ;; exwm startup goes here
+  (require 'init-exwm))
+
 ;; One of the last things to do.
 (load custom-file)
 
 ;; and a prompt to save all unsaved customizations
 ;(add-hook 'kill-emacs-query-functions
 ;	  'custom-prompt-customize-unsaved-options)
+(put 'narrow-to-region 'disabled nil)

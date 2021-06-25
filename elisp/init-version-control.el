@@ -1,5 +1,11 @@
 ;;; init-version-control.el --- -*- lexical-binding: t -*-
 
+(use-package transient
+  :ensure t)
+
+(use-package transient-dwim
+  :ensure t)
+
 (use-package magit
   :ensure t
   :if *git*
