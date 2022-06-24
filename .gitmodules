@@ -25,3 +25,6 @@
 [submodule "site-elisp/rscope"]
 	path = site-elisp/rscope
 	url = https://github.com/rjarzmik/rscope
+[submodule "site-elisp/distel"]
+	path = site-elisp/distel
+	url = https://github.com/massemanet/distel
