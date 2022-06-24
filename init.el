@@ -86,6 +86,7 @@
 (require 'init-lsp)
 (require 'init-prog-c)
 (require 'init-prog-py)
+(require 'init-prog-rust)
 (require 'init-prog-markup-langs)
 (require 'init-adoc)
 

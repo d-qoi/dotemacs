@@ -45,6 +45,21 @@
   (executable-find "ccls")
   "Do we have ccls")
 
+(defconst *rust-cargo*
+  (executable-find "cargo")
+  "Do we have cargo?")
+
+(defconst *rustc*
+  (executable-find "rustc")
+  "Do we have rustc?")
+
+(defconst *rust-analyzer*
+  (executable-find "rust-analyzer")
+  "Do we have rust-analyzer")
+
+(if (and *rust-cargo* *rustc* (not *rust-analyzer*))
+    (warn "rust-analyzer is not installed. https://github.com/rust-analyzer/rust-analyzer.git"))
+
 (defconst *clangd*
   (or (executable-find "clangd")  ;; usually
       (or (executable-find "clangd-10") (executable-find "clangd-9") (executable-find "clangd-8")) ;; direct

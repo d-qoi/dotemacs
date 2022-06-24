@@ -10,7 +10,10 @@
   (lsp-prefer-flymake nil) ; Use flycheck instead of flymake
   (lsp-file-watch-threshold 20000)
   (read-process-output-max (* 1024 1024))
+  (lsp-eldoc-render-all t)
+  (lsp-idle-delay 0.6)
   :config
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode)
   (if *clangd*
       (progn
         (setq lsp-clients-clangd-args '("-j=4" "-background-index" "-log=error"))
@@ -39,7 +42,9 @@
   (lsp-ui-doc-border (face-foreground 'default))
   (lsp-ui-sideline-enable nil)
   (lsp-ui-sideline-ignore-duplicate t)
+  (lsp-ui-sideline-show-hover t)
   (lsp-ui-sideline-show-code-actions nil)
+  (lsp-ui-peek-always-show t)
   :config
   ;; Use lsp-ui-doc-webkit only in GUI
   (if *sys/gui*
