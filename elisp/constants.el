@@ -113,4 +113,13 @@
   (executable-find "erl")
   "Do we have erlang?")
 
+(defconst *kerl*
+  (executable-find "kerl")
+  "Is Kerl Installed?")
+
+(defconst *kerl-active*
+  (if *kerl*
+      (not (shell-command "kerl active"))
+    nil))
+
 (provide 'constants)

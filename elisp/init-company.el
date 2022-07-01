@@ -41,12 +41,6 @@ If failed try to complete the common part with `company-complete-common'"
   ;;(add-hook 'after-init-hook 'global-company-mode)
   )
 
-(use-package company-lsp
-  :ensure t
-  :defer t
-  :after (:all company lsp-mode)
-  :custom (company-lsp-cache-candidates 'auto))
-
 (use-package company-distel
   :if *erlang*
   :ensure t

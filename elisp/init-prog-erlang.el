@@ -2,7 +2,7 @@
 
 (require 'constants)
 
-(when *erlang*
+(when *kerl-active*
   (let* ((erlang-root-dir
           (file-name-directory (directory-file-name (file-name-directory *erlang*))))
          (erlang-emacs-dir
@@ -14,7 +14,7 @@
     (setq erlang-man-root-dir (concat erlang-root-dir "man"))))
 
 (use-package distel
-  :if *erlang*
+  :if *kerl-active*
   :load-path (lambda () (expand-file-name "site-elisp/distel/elisp" user-emacs-directory))
   :config
   (distel-setup)

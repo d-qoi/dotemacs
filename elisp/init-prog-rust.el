@@ -26,4 +26,10 @@
   :config
   (setq rustic-format-on-save t))
 
+(lsp-register-client
+    (make-lsp-client :new-connection (lsp-tramp-connection "rust-analyzer")
+                     :major-modes '(rust-mode)
+                     :remote? t
+                     :server-id 'rust-analyzer-remote))
+
 (provide 'init-prog-rust)
