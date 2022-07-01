@@ -12,9 +12,10 @@
   (python-shell-interpreter "python3"))
 
 
-(use-package pyenv-mode
+(use-package pyvenv
   :ensure t
-  :after python)
+  :after python
+  :hook ((prog-mode python-mode) . pyvenv-mode))
 
 
 ;; (use-package lsp-python-ms
@@ -32,9 +33,9 @@
 
 (use-package anaconda-mode
   :ensure t
-  :after pyvenv-mode
+  :after pyvenv
   :diminish
-  :if (not *python-use-lsp*)
+  ;;:if (not *lsp*)
   :hook ((python-mode-hook . anaconda-mode)
          (python-mode-hook . anaconda-eldoc-mode)))
 

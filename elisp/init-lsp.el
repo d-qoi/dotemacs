@@ -4,15 +4,22 @@
   :ensure t
   :defer t
   :commands lsp
+  :if *lsp*
   :custom
-  (lsp-auto-guess-root nil)
+  (lsp-auto-guess-root t)
   (lsp-prefer-flymake nil) ; Use flycheck instead of flymake
-  (lsp-file-watch-threshold 2000)
+  (lsp-file-watch-threshold 20000)
   (read-process-output-max (* 1024 1024))
+  (lsp-eldoc-render-all t)
+  (lsp-idle-delay 0.6)
+  :config
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+  (if *clangd*
+      (progn
+        (setq lsp-clients-clangd-args '("-j=4" "-background-index" "-log=error"))
+        (setq lsp-clients-clangd-executable *clangd*)))
   :bind (:map lsp-mode-map ("C-c C-f" . lsp-format-buffer))
-  :hook ((java-mode python-mode go-mode
-          js-mode js2-mode typescript-mode web-mode
-          c-mode c++-mode objc-mode) . lsp))
+  :hook ((python-mode c-mode c++-mode) . lsp))
 
 (use-package lsp-ui
   :ensure t
@@ -35,7 +42,9 @@
   (lsp-ui-doc-border (face-foreground 'default))
   (lsp-ui-sideline-enable nil)
   (lsp-ui-sideline-ignore-duplicate t)
+  (lsp-ui-sideline-show-hover t)
   (lsp-ui-sideline-show-code-actions nil)
+  (lsp-ui-peek-always-show t)
   :config
   ;; Use lsp-ui-doc-webkit only in GUI
   (if *sys/gui*

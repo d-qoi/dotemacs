@@ -2,6 +2,7 @@
 
 (use-package ivy
   :ensure t
+  :demand
   :diminish
   :bind
   ((:map ivy-minibuffer-map

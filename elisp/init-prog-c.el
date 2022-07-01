@@ -1,10 +1,13 @@
 ;;; init-prog-c.el --- -*- lexical-binding: t -*-
 
+(setq c-basic-offset 4
+      c-default-style "linux")
+
 (use-package ccls
   :ensure t
   :defer t
   :after lsp-mode
-  :if *ccls*
+  :if (and *ccls* (not *clangd*))
   :hook ((c-mode c++-mode objc-mode) .
          (lambda () (require 'ccls) (lsp)))
   :custom
@@ -73,10 +76,19 @@
 
 (use-package xcscope
   :ensure t
-  :if (or *global* *cscope*)
+  :disabled
+  :if *cscope*
+  :custom
+  (cscope-option-use-inverted-index 't)
+  (cscope-edit-single-match nil)
   :init
   ;; (if *global*
   ;;     (setq cscope-program "gtags-cscope"))
+  :config
+  (add-hook 'projectile-after-switch-project-hook
+            (lambda ()
+              (message "Switching cscope initial directory")
+              (cscope-set-initial-directory (projectile-project-root))))
   (cscope-setup))
 
 (use-package cflow-mode
@@ -84,5 +96,12 @@
   :init
   (autoload 'cflow-mode "cflow-mode")
   :mode "\\.cflow$")
+
+
+(use-package rscope
+  :if *cscope*
+  :load-path (lambda () (expand-file-name "site-elisp/rscope" user-emacs-directory))
+  :config)
+
 
 (provide 'init-prog-c)

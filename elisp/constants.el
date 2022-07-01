@@ -45,10 +45,31 @@
   (executable-find "ccls")
   "Do we have ccls")
 
+(defconst *rust-cargo*
+  (executable-find "cargo")
+  "Do we have cargo?")
+
+(defconst *rustc*
+  (executable-find "rustc")
+  "Do we have rustc?")
+
+(defconst *rust-analyzer*
+  (executable-find "rust-analyzer")
+  "Do we have rust-analyzer")
+
+(if (and *rust-cargo* *rustc* (not *rust-analyzer*))
+    (warn "rust-analyzer is not installed. https://github.com/rust-analyzer/rust-analyzer.git"))
+
 (defconst *clangd*
   (or (executable-find "clangd")  ;; usually
+      (or (executable-find "clangd-10") (executable-find "clangd-9") (executable-find "clangd-8")) ;; direct
       (executable-find "/usr/local/opt/llvm/bin/clangd"))  ;; macOS
   "Do we have clangd?")
+
+(if (and
+     (not *clangd*)
+     (or (executable-find "clangd-10") (executable-find "clangd-9") (executable-find "clangd-8")))
+    (warn "Make sure clangd is aliassed correctly"))
 
 (defconst *gcc*
   (executable-find "gcc")
@@ -70,6 +91,10 @@
   (executable-find "git")
   "Do we have git?")
 
+(defconst *p4*
+  (executable-find "p4")
+  "Do we have perforce?")
+
 (defconst *pdflatex*
   (executable-find "pdflatex")
   "Do we have pdflatex?")
@@ -80,7 +105,12 @@
        (not (equal (shell-command-to-string "pip freeze | grep '^PyQt\\|PyQtWebEngine'") "")))
   "Check basic requirements for EAF to run.")
 
-(defconst *python-use-lsp* t
-  "Do we use LSP or Anaconda")
+(defconst *lsp*
+  (or *ccls* *clangd*)
+  "Use lsp for any specific language.")
+
+(defconst *erlang*
+  (executable-find "erl")
+  "Do we have erlang?")
 
 (provide 'constants)

@@ -3,6 +3,8 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 
+(setq x-alt-keysym 'meta)
+
 (setq inhibit-startup-message t)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 

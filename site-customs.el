@@ -3,4 +3,14 @@
   (save-excursion
     (beginning-of-buffer)
     (flush-lines " ")
-    (flush-lines "_out/")))
+    (flush-lines "_out/")
+    (flush-lines "build/")
+    (flush-lines "compiler/")
+    (flush-lines "gpgpu/")
+    (flush-lines "diag/")
+    (flush-lines "edg/")
+    (flush-lines "installer2.0/")
+    (flush-lines "optix/")
+    (flush-lines ".ccls-cache/")))
+
+(autoload 'typing-of-emacs "typing" "The Typing Of Emacs, a game." t)

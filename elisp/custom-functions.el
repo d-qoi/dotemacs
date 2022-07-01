@@ -35,7 +35,7 @@ will be killed."
           (kill-buffer buf)
           (message "Killed %s" filename))))))
 
-(defun load-ssh-abbrev ()
+(defun d-qoi/load-ssh-abbrev ()
   "Create Dired Abbreviations from ~/.ssh/config.
 The ssh/config file will needs to be layed out in specific format to allow
 the regex to operate properly.  Advice should be added next."
@@ -48,7 +48,7 @@ the regex to operate properly.  Advice should be added next."
             (username (match-string 3)))
         (add-to-list 'directory-abbrev-alist
                      (cons (format "^/%s" host)
-                           (format "/ssh:%s@%s:" username hostname)))
+                           (format "/scp:%s@%s:" username hostname)))
         (message (format (format "^/%s" host)))))))
 
 (defun d-qoi/push-mark ()
