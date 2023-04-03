@@ -66,9 +66,7 @@
 ;;(load-ssh-hostname-envvar)
 
 (require 'init-dired)
-
 (require 'init-linum)
-
 (require 'init-org)
 
 ;; packages that require config
@@ -82,6 +80,7 @@
 (require 'init-editing)
 (require 'init-company)
 (require 'init-flycheck)
+(require 'init-version-control)
 
 ;; submodules that may or may not be loaded
 
