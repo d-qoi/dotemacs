@@ -1,5 +1,5 @@
 ;;; init-defaults.el --- -*- lexical-binding: t -*-
-
+;;; Code:
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 
@@ -23,7 +23,7 @@
 (setq auto-revert-verbose nil)
 (setq auto-revert-interval 10)
 
-;; show unncessary whitespace that can mess up your diff
+;; show unncessary whitespace that can mess up diffs
 (add-hook 'prog-mode-hook
           (lambda () (interactive)
             (setq show-trailing-whitespace 1)))
@@ -92,4 +92,5 @@
 (global-set-key (kbd "C-z t") 'tmm-menubar)
 
 (provide 'init-defaults)
-;;; setup-general.el ends here
+;;; init-defaults.el ends here
+

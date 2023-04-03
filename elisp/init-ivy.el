@@ -42,11 +42,4 @@
   :bind (("C-s" . swiper-isearch)
          ("C-r" . swiper-isearch-backward)))
 
-
-(use-package amx
-  :ensure t
-  :requires ivy
-  :disabled
-  :defer t)
-
 (provide 'init-ivy)

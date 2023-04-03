@@ -1,4 +1,7 @@
 ;; init-dired.el --- -*- lexical-binding: t -*-
+;;; Code:
+
+(require 'dired+) ;; better dired
 
 (use-package dired
   :ensure nil
@@ -7,11 +10,5 @@
    ("C-x j" . dired-jump-other-window))
   :custom
   (dired-dwim-target t))
-
-(use-package neotree
-  :ensure t
-  :bind ("C-z n" . neotree-toggle)
-  :config
-  (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
 
 (provide 'init-dired)

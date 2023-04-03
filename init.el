@@ -66,14 +66,12 @@
 ;;(load-ssh-hostname-envvar)
 
 (require 'init-dired)
-(require 'dired+) ;; better dired
 
 (require 'init-linum)
 
 (require 'init-org)
 
 ;; packages that require config
-(require 'init-ati)
 (require 'init-projectile)
 (require 'init-ivy)
 (require 'init-whichkey)
@@ -84,36 +82,11 @@
 (require 'init-editing)
 (require 'init-company)
 (require 'init-flycheck)
-(require 'init-lsp)
-(require 'init-prog-c)
-(require 'init-prog-py)
-(require 'init-prog-rust)
-(require 'init-prog-markup-langs)
-(require 'init-prog-erlang)
-;; (require 'init-adoc)
-(require 'init-restclient)
-
-(require 'init-version-control)
 
 ;; submodules that may or may not be loaded
 
 (if (file-exists-p (expand-file-name "site-customs.el" user-emacs-directory))
     (load-file (expand-file-name "site-customs.el" user-emacs-directory)))
-
-
-;; Enable EXWM or don't enable EXWM
-(when (get-buffer "*window-manager*")
-  (kill-buffer "*window-manager*"))
-(when (get-buffer "*window-manager-error*")
-  (kill-buffer "*window-manager-error*"))
-(when (executable-find "wmctrl")
-  (shell-command "wmctrl -m ; echo $?" "*window-manager*" "*window-manager-error*"))
-
-;; if there was an error detecting the window manager, initialize EXWM
-(when (and (get-buffer "*window-manager-error*")
-           (eq window-system 'x))
-  ;; exwm startup goes here
-  (require 'init-exwm))
 
 ;; One of the last things to do.
 (load custom-file)

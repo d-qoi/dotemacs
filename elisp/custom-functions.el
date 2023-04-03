@@ -2,7 +2,7 @@
 
 ;;; Code:
 
-(defun revert-all-file-buffer ()
+(defun d-qoi/revert-all-file-buffer ()
   "Refresh all open files buffers without confirmation.
 Buffers in modified (not yet saved) state in Emacs will not be reverted.  They
 will be reverted though if they were modified outside Emacs.
@@ -25,7 +25,7 @@ will be killed."
             (message "Killed non-existing/unreadable file buffer: %s" filename))))))
   (message "Finnished reverting all buffers"))
 
-(defun kill-all-file-buffers ()
+(defun d-qoi/kill-all-file-buffers ()
   "Kill all file buffers."
   (interactive)
   (dolist (buf (buffer-list))
@@ -57,10 +57,11 @@ the regex to operate properly.  Advice should be added next."
   (push-mark))
 
 (defun d-qoi/remove-all-lines-with-spaces ()
+  "Flushes all lines with only ' '."
   (interactive)
   (save-excursion
-    (beginning-of-buffer)
+    (goto-char (point-min))
     (flush-lines " ")))
 
 (provide 'custom-functions)
-
+;;; custom-functions.el ends here.
