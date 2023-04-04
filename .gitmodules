@@ -10,3 +10,6 @@
 [submodule "site-elisp/distel"]
 	path = site-elisp/distel
 	url = https://github.com/massemanet/distel
+[submodule "site-elisp/org-novelist"]
+	path = site-elisp/org-novelist
+	url = git@github.com:sympodius/org-novelist.git
