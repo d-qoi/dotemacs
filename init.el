@@ -28,6 +28,10 @@
 (require 'init-defaults)
 
 (require 'init-global-packages)
+(require 'init-prog)
+(require 'init-prog-c)
+(require 'init-editing)
+(require 'init-nav)
 
 ;; One of the last things to do.
 (if (file-exists-p custom-file)
