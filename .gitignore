@@ -8,6 +8,9 @@ ecb/
 ede-projects.el
 elpa/*
 eshell/*
+straight/*
+eln-cache/*
+snippits/*
 projectile-bookmarks.eld
 recentf
 auto-save-list

@@ -1,18 +1,33 @@
 ;;; init.el --- -*- lexical-binding: t -*-
 
+(require 'use-package)
+
 (setq custom-file "~/.emacs.d/emacs-custom.el")
 (add-to-list 'load-path "~/.emacs.d/elisp")
 
 ;; package setup
+(defvar bootstrap-version)
+(setq straight-repository-branch "develop")
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 6))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
 
-;; use-package setup
+(unless (require 'use-package nil t)
+  (straight-use-package 'use-package))
 
 
+;; Require All the things
+(require 'init-defaults)
 
-;; Emacs customizations that do not require installations
-
-
-;; submodules that may or may not be loaded
+(require 'init-global-packages)
 
 ;; One of the last things to do.
 (if (file-exists-p custom-file)

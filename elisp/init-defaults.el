@@ -1,7 +1,10 @@
+;;; init-defaults.el --- -*- lexical-binding: t -*-
+
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 
-(setq gc-cons-threshold 100000000)
+(setq x-alt-keysym 'meta)
+
 (setq inhibit-startup-message t)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
@@ -11,8 +14,8 @@
 ;; no bell
 (setq visible-bell t)
 
-;; for auto reloading
-(setq global-auto-revert-mode 1)
+;; tmm menues
+(setq tty-menu-open-use-tmm t)
 
 ;; show unncessary whitespace that can mess up your diff
 (add-hook 'prog-mode-hook
@@ -28,12 +31,11 @@
 ;; truncating liens
 (setq-default truncate-lines t)
 
-;; setup GDB
-(setq
- ;; use gdb-many-windows by default
- gdb-many-windows t
- ;; Non-nil means display source file containing the main routine at startup
- gdb-show-main t)
+;; completion
+(setq-default compilation-always-kill t)
+
+;; Minibuffer
+(setq enable-recursive-minibuffers t)
 
 ;; activate whitespace-mode to view all whitespace characters
 (global-set-key (kbd "C-c w") 'whitespace-mode)
@@ -41,8 +43,19 @@
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
 
+(when (fboundp 'winner-mode)
+  (winner-mode 1))
+
 ;; always helpful
 (display-time)
+
+;; useful modes
+(show-paren-mode 1)
+
+(require 'recentf)
+(recentf-mode 1)
+(setq recentf-max-menu-items 25)
+(global-set-key (kbd "C-c C-r") 'recentf-open-files)
 
 ;; binding functions
 (global-set-key (kbd "C-x C-k") 'delete-other-windows)
@@ -50,7 +63,35 @@
 
 ;; ibuffer buffer list
 (global-set-key (kbd "C-x B") 'ibuffer-list-buffers)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
-(message "init-defaults loaded")
+;; paragraph navigation
+(global-unset-key (kbd "M-}"))
+(global-unset-key (kbd "M-{"))
+(global-set-key (kbd "M-n") 'forward-paragraph)
+(global-set-key (kbd "M-p") 'backward-paragraph)
+
+;; c-z will be used as an entry point to many functions as a personal keymap, still want c-x c-z for suspend frame
+(global-unset-key (kbd "C-z"))
+(global-set-key (kbd "C-z z") 'suspend-frame)
+(global-unset-key (kbd "M-z"))
+
+;; multiple frames
+(global-set-key (kbd "C-x O") 'other-frame)
+(global-set-key (kbd "C-z f") 'make-frame)
+
+(defun d-qoi/push-mark ()
+  (interactive)
+  (push-mark))
+
+;; mark
+(global-set-key (kbd "C-z m") 'd-qoi/push-mark)
+
+;; revert buffer
+(global-set-key (kbd "C-z r") 'revert-buffer)
+
+;; ttm menu bind again
+(global-set-key (kbd "C-z t") 'tmm-menubar)
+
 (provide 'init-defaults)
 ;;; setup-general.el ends here
