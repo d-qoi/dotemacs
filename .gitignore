@@ -1,6 +1,6 @@
 # -*- mode: gitignore; -*-
 *~
-\q#*\#
+\#*\#
 /.emacs.desktop
 /.emacs.desktop.lock
 *.elc
@@ -11,6 +11,7 @@ eshell/*
 straight/*
 eln-cache/*
 snippits/*
+projects
 projectile-bookmarks.eld
 recentf
 auto-save-list
