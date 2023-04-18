@@ -12,4 +12,7 @@
   (c-toggle-electric-state 1))
 (add-hook 'c-initialization-hook 'd-qoi/c-initialization-hook)
 
+(add-hook 'c++-mode-hook 'eglot-ensure)
+(add-hook 'c-mode-hook 'eglot-ensure)
+
 (provide 'init-prog-c)

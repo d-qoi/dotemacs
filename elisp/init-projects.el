@@ -2,6 +2,10 @@
 
 (require 'use-package)
 
+(defun dd/projectile-proj-find-function (dir)
+  (let ((root (projectile-project-root dir)))
+    (and root (cons 'transient root))))
+
 (use-package projectile
   :straight t
   :hook (after-init-hook . projectile-mode)
@@ -9,6 +13,11 @@
   (:map projectile-mode-map
         ("C-c p" . projectile-command-map)))
 
+
+(use-package project
+  :custom
+  (add-to-list 'project-find-functions
+               'dd/projectile-proj-find-function))
 
 (use-package transient
   :straight t)
