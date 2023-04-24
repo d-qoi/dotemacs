@@ -2,6 +2,8 @@
 
 (require 'use-package)
 
+(use-package eglot)
+
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
 (use-package yasnippet
@@ -46,22 +48,6 @@
   :straight t
   :demand t
   :after (:all consult eglot))
-
-(use-package eglot
-  :config
-  (add-to-list 'eglot-server-programs
-               '((c-mode c++-mode)
-                 . ("clangd"
-                    "-j=8"
-                    "--log=error"
-                    "--malloc-trim"
-                    "--background-index"
-                    "--clang-tidy"
-                    "--cross-file-rename"
-                    "--completion-style=detailed"
-                    "--pch-storage=memory"
-                    "--header-insertion=never"
-                    "--header-insertion-decorators=0"))))
 
 
 (use-package idle-highlight-mode
