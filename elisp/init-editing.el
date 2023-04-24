@@ -33,4 +33,4 @@
   :config
   (global-anzu-mode 1))
 
-(provide 'init-edit)
+(provide 'init-editing)

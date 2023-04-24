@@ -21,15 +21,18 @@
   (load bootstrap-file nil 'nomessage))
 
 (unless (require 'use-package nil t)
-  (straight-use-package 'use-package))
+  (straight-use-package 'use-package)
+  (setq use-package-verbose t))
 
 
 ;; Require All the things
 (require 'init-defaults)
 
 (require 'init-global-packages)
+(require 'init-projects)
 (require 'init-prog)
 (require 'init-prog-c)
+(require 'init-prog-cmake)
 (require 'init-editing)
 (require 'init-nav)
 

@@ -28,6 +28,7 @@
                                 vertico-directory
                                 vertico-multiform
                                 vertico-unobtrusive))
+  :demand t
   :bind
   (:map vertico-map
         ("?" . minibuffer-completion-help)
@@ -36,12 +37,24 @@
         ("RET" . vertico-directory-enter)
         ("DEL" . vertico-directory-delete-char)
         ("M-DEL" . vertico-directory-delete-word))
+  :init
+  (setq vertico-multiform-commands
+        '((consult-imenu . (buffer indexed))
+          (consult-line . buffer)
+          (execute-extended-command unobtrusive)
+          (describe-symbol (vertico-sort-function . vertico-sort-alpha))))
+  (setq vertico-multiform-categories
+        '((file . (buffer grid))
+          (imenu . (:not indexed mouse))
+          (symbol . (vertico-sort-function . vertico-sort-alpha))))
   :config
-  (vertico-mode)
+  (vertico-mode 1)
   (vertico-multiform-mode))
 
 (use-package consult
+  ;; Copied from github initially and modified for my own use
   :straight t
+  :demand t
   ;; Replace bindings. Lazily loaded due by `use-package'.
   :bind (;; C-c bindings in `mode-specific-map'
          ("C-c M-x" . consult-mode-command)
@@ -161,24 +174,33 @@
 
 (use-package orderless
   :straight t
+  :demand t
+  :config
+  (add-to-list 'orderless-affix-dispatch-alist
+               '(62 . substring)) ;; 62 is '>'
   :custom
-  (Completion-styles '(substring orderless basic))
+  (completion-styles '(substring orderless basic))
   (completion-category-defaults nil)
   (completion-category-overrides '((file (styles partial-completion)))))
 
 
 (use-package marginalia
   :straight t
+  :demand t
+  :bind (("M-A" . marginalia-cycle)
+         :map minibuffer-local-map
+         ("M-A" . marginalia-cycle))
   :config
   (marginalia-mode))
 
 (use-package embark
   :straight t
+  :demand t
   :after marginalia
   :bind
   (("C-." . embark-act)         ;; pick some comfortable binding
    ("C-;" . embark-dwim)        ;; good alternative: M-.
-   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+   ("C-h B" . embark-bindings)) ;; alternativ efor `describe-bindings'
   :init
   ;; Optionally replace the key help with a completing-read interface
   (setq prefix-help-command #'embark-prefix-help-command)
@@ -196,6 +218,7 @@
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
   :straight t ; only need to install it, embark loads it after consult if found
+  :demand t
   :after (:all embark consult)
   :hook (embark-collect-mode . consult-preview-at-point-mode))
 

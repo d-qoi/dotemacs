@@ -11,6 +11,7 @@ eshell/*
 straight/*
 eln-cache/*
 snippits/*
+transient/*
 projects
 projectile-bookmarks.eld
 recentf

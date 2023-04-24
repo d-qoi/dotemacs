@@ -8,6 +8,7 @@
 
 (use-package projectile
   :straight t
+  :demand t
   :hook (after-init-hook . projectile-mode)
   :bind
   (:map projectile-mode-map
@@ -29,6 +30,7 @@
 (use-package magit
   :straight t
   :after transient
+  :demand t
   :bind ("C-x g" . magit-status))
 
 

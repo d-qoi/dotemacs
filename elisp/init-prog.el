@@ -6,16 +6,18 @@
 
 (use-package yasnippet
   :straight (yasnippet :host github :repo "joaotavora/yasnippet")
+  :demand t
   :hook (prog-mode . yas-minor-mode))
 
 (use-package yasnippet-snippets
   :straight (yasnippet-snippets :host github :repo "AndreaCrotti/yasnippet-snippets")
+  :demand t
   :after yasnippet)
 
 (use-package company
   :straight t
+  :demand t
   :after orderless
-  :hook (after-init-hook . global-company-mode)
   :bind
   (("C-c C-/" . company-other-backend)
    ("C-c Y" . company-yasnippet))
@@ -26,7 +28,8 @@
                             company-yasnippet
                             company-dabbrev-code
                             company-files
-                            company-keywords))))
+                            company-keywords)))
+  (global-company-mode 1))
 
 (use-package semantic
   :hook (after-init-hook . semantic-mode))
@@ -41,6 +44,7 @@
 
 (use-package consult-eglot
   :straight t
+  :demand t
   :after (:all consult eglot))
 
 (use-package eglot
@@ -58,5 +62,10 @@
                     "--pch-storage=memory"
                     "--header-insertion=never"
                     "--header-insertion-decorators=0"))))
+
+
+(use-package idle-highlight-mode
+  :straight t
+  :hook (prog-mode-hook . idle-highlight-mode))
 
 (provide 'init-prog)
