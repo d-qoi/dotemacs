@@ -14,6 +14,7 @@ snippits/*
 transient/*
 projects
 projectile-bookmarks.eld
+bookmarks
 recentf
 auto-save-list
 semanticdb
@@ -26,6 +27,7 @@ emacs-custom.el
 # Org-mode
 .org-id-locations
 *_archive
+org-roam.db
 
 # flymake-mode
 *_flymake.*

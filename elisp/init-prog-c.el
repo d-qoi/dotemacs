@@ -1,6 +1,5 @@
 ;; -*- lexical-binding -*-
 
-(require 'use-package)
 (require 'eglot)
 
 (add-to-list 'eglot-server-programs

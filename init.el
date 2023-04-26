@@ -27,14 +27,17 @@
 
 ;; Require All the things
 (require 'init-defaults)
-
 (require 'init-global-packages)
+(require 'init-nav)
+(require 'init-org)
 (require 'init-projects)
+(require 'init-editing)
+
 (require 'init-prog)
 (require 'init-prog-c)
 (require 'init-prog-cmake)
-(require 'init-editing)
-(require 'init-nav)
+
+
 
 ;; One of the last things to do.
 (if (file-exists-p custom-file)

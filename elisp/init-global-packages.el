@@ -46,7 +46,7 @@
   (setq vertico-multiform-categories
         '((file . (buffer grid))
           (imenu . (:not indexed mouse))
-          (symbol . (vertico-sort-function . vertico-sort-alpha))))
+          (describe-symbol (vertico-sort-function . vertico-sort-alpha)))))
   :config
   (vertico-mode 1)
   (vertico-multiform-mode))
