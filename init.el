@@ -36,6 +36,7 @@
 (require 'init-prog)
 (require 'init-prog-c)
 (require 'init-prog-cmake)
+(require 'init-prog-go)
 
 
 

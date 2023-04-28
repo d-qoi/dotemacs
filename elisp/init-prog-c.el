@@ -2,10 +2,15 @@
 
 (require 'eglot)
 
-(add-to-list 'eglot-server-programs
-             '((c-mode c++-mode)
-               . ("clangd"
-                  "-j=8"
+(defconst *clangd*
+  (executable-find "clangd")
+  "Do we have clangd?")
+
+(when *clangd*
+  (add-to-list 'eglot-server-programs
+               '((c-mode c++-mode)
+                 . ("clangd"
+                    "-j=8"
                   "--log=error"
                   "--malloc-trim"
                   "--background-index"
@@ -15,6 +20,8 @@
                   "--pch-storage=memory"
                   "--header-insertion=never"
                   "--header-insertion-decorators=0")))
+  (add-hook 'c++-mode-hook 'eglot-ensure)
+  (add-hook 'c-mode-hook 'eglot-ensure))
 
 (setq c-basic-offset 4
       c-default-style '((java-mode . "java")
@@ -26,7 +33,6 @@
   (c-toggle-electric-state 1))
 (add-hook 'c-initialization-hook 'd-qoi/c-initialization-hook)
 
-(add-hook 'c++-mode-hook 'eglot-ensure)
-(add-hook 'c-mode-hook 'eglot-ensure)
+
 
 (provide 'init-prog-c)

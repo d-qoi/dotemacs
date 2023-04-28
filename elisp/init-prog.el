@@ -1,8 +1,8 @@
 ;; -*- lexical-binding: t -*-
 
 (require 'use-package)
-
-(use-package eglot)
+(require 'treesit)
+(require 'eglot)
 
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
@@ -34,7 +34,8 @@
   (global-company-mode 1))
 
 (use-package semantic
-  :hook (after-init-hook . semantic-mode))
+  :init
+  (semantic-mode))
 
 ;; We follow a suggestion by company maintainer u/hvis:
 ;; https://www.reddit.com/r/emacs/comments/nichkl/comment/gz1jr3s/
@@ -47,11 +48,39 @@
 (use-package consult-eglot
   :straight t
   :demand t
-  :after (:all consult eglot))
+  :after (:all consult))
 
 
 (use-package idle-highlight-mode
   :straight t
   :hook (prog-mode-hook . idle-highlight-mode))
+
+(defconst *tree-sit-dist-dir* "third-party/tree-sitter-module/dist"
+  "Destination directory of tree-sitter shared objects")
+
+(defun d-qoi/get-tree-sitter-languages (&optional language)
+  "Get languages built already by third-party/tree-sitter-module"
+  (let* ((default-directory user-emacs-directory)
+         (dist (expand-file-name *tree-sit-dist-dir*)))
+    (when (file-exists-p dist)
+      (let* ((file-names (directory-files dist nil "libtree-sitter"))
+             (names (mapcar (lambda (file-name)
+                             (string-match "libtree-sitter-\\(.*\\)\\.so" file-name)
+                             (match-string 1 file-name)) file-names)))
+        (if language
+            (member language names)
+          names)))))
+
+(unless (treesit-available-p)
+  (warn "Tree sitter is not available."))
+(when (treesit-available-p)
+  (setq treesit-extra-load-path (list (expand-file-name *tree-sit-dist-dir* user-emacs-directory))))
+
+(use-package treesit-auto
+  :straight t
+  :if (treesit-available-p)
+  :demand t
+  :config
+  (global-treesit-auto-mode))
 
 (provide 'init-prog)
