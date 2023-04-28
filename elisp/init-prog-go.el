@@ -2,7 +2,8 @@
 
 (require 'eglot)
 (require 'use-package)
-(require 'treesit)
+(unless (require 'treesit nil t)
+  (defun treesit-available-p () nil))
 (require 'project)
 
 (defconst *golang*

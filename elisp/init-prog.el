@@ -1,7 +1,8 @@
 ;; -*- lexical-binding: t -*-
 
 (require 'use-package)
-(require 'treesit)
+(unless (require 'treesit nil t)
+  (defun treesit-available-p () nil))
 (require 'eglot)
 
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)

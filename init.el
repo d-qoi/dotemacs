@@ -1,7 +1,5 @@
 ;;; init.el --- -*- lexical-binding: t -*-
 
-(require 'use-package)
-
 (setq custom-file "~/.emacs.d/emacs-custom.el")
 (add-to-list 'load-path "~/.emacs.d/elisp")
 
