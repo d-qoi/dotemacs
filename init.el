@@ -24,6 +24,8 @@
   (straight-use-package 'use-package)
   (setq use-package-verbose t))
 
+(unless (require 'eglot nil t)
+  (straight-use-package 'eglot))
 
 ;; Require All the things
 (require 'init-defaults)
