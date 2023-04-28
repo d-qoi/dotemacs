@@ -6,8 +6,9 @@
 (add-to-list 'load-path "~/.emacs.d/elisp")
 (add-to-list 'load-path "~/.emacs.d/site-elisp")
 
-(setq better-gc-cons-threshold 134217728)
-(setq gc-cons-threshold better-gc-cons-threshold)
+;; (setq better-gc-cons-threshold 134217728)
+;; (setq old-gc-cons-threshold gc-cons-threshold)
+;; (setq gc-cons-threshold better-gc-cons-threshold)
 
 ;; (add-hook 'emacs-startup-hook
 ;;           (lambda ()
@@ -57,6 +58,8 @@
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 (require 'use-package)
+(setq use-package-verbose t
+      use-package-compute-statistics t)
 (use-package diminish
   :ensure t)
 

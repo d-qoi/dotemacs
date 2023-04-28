@@ -7,6 +7,7 @@
 (use-package undo-tree
   :ensure t
   :defer t
+  :disabled
   :diminish undo-tree-mode
   :init (global-undo-tree-mode)
   :custom

@@ -22,4 +22,11 @@
 
 (add-hook 'after-change-major-mode-hook 'd-qoi/linum-disable-function)
 
+(defun d-qoi/disable-linum-large-files ()
+  "Disable linum mode on files with more than 100000 lines."
+  (if (> (count-lines (point-min) (point-max)) 100000)
+      (linum-mode 0)))
+
+(add-hook 'find-file-hook 'd-qoi/disable-linum-large-files)
+
 (provide 'init-linum)
