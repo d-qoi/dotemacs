@@ -9,7 +9,8 @@
 (use-package projectile
   :straight t
   :demand t
-  :hook (after-init-hook . projectile-mode)
+  :config
+  (projectile-mode 1)
   :bind
   (:map projectile-mode-map
         ("C-c p" . projectile-command-map)))

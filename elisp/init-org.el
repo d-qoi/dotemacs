@@ -25,6 +25,7 @@
     (with-temp-file *org-agenda-file-listing*
 	  (insert *org-agenda-file-default* "\n")))
   :custom
+  (org-return-follows-link t)
   (org-agenda-files *org-agenda-file-listing*)
   (org-capture-templates
         '(("s" "Slipbox" plain
@@ -87,6 +88,13 @@
 
 (use-package org-novelist
   :straight (:host github :repo "sympodius/org-novelist")
+  :bind
+  (:map org-novelist-mode-map
+        ("C-c N p" . org-novelist-new-prop)
+        ("C-c N c" . org-novelist-new-character)
+        ("C-c N l" . org-novelist-new-place)
+        ("C-c N C" . org-novelist-new-chapter)
+        ("C-c N u" . org-novelist-update-references))
   :custom
   (org-novelist-language-tag "en-GB")
   (org-novelist-automatic-referencing-p nil))

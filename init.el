@@ -1,7 +1,8 @@
 ;;; init.el --- -*- lexical-binding: t -*-
 
-(setq custom-file "~/.emacs.d/emacs-custom.el")
-(add-to-list 'load-path "~/.emacs.d/elisp")
+(setq custom-file (expand-file-name "emacs-custom.el" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "elisp" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "site-elisp" user-emacs-directory))
 
 ;; package setup
 (defvar bootstrap-version)
@@ -34,6 +35,7 @@
 (require 'init-editing)
 
 (require 'init-prog)
+(require 'init-prog-markup)
 (require 'init-prog-c)
 (require 'init-prog-cmake)
 (require 'init-prog-go)
@@ -47,3 +49,4 @@
 ;; and a prompt to save all unsaved customizations
 (add-hook 'kill-emacs-query-functions
 	  'custom-prompt-customize-unsaved-options)
+(put 'narrow-to-region 'disabled nil)
