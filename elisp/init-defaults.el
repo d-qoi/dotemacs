@@ -43,8 +43,7 @@
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
 
-(when (fboundp 'winner-mode)
-  (winner-mode 1))
+(winner-mode 1)
 
 ;; always helpful
 (display-time)

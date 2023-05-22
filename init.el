@@ -50,3 +50,12 @@
 (add-hook 'kill-emacs-query-functions
 	  'custom-prompt-customize-unsaved-options)
 (put 'narrow-to-region 'disabled nil)
+
+(defun d-qoi/copy-warnings-to-scratch ()
+  "Copy the contents of the *Warnings* buffer to the *scratch* buffer."
+  (interactive)
+  (with-current-buffer "*Warnings*"
+    (let ((warnings-text (buffer-substring-no-properties (point-min) (point-max))))
+      (with-current-buffer "*scratch*"
+        (goto-char (point-max))
+        (insert warnings-text)))))
