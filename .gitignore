@@ -6,12 +6,13 @@
 *.elc
 ecb/
 ede-projects.el
-elpa/*
-eshell/*
-straight/*
-eln-cache/*
-snippits/*
-transient/*
+elpa/
+eshell/
+straight/
+eln-cache/
+snippits/
+transient/
+tree-sitter/
 projects
 projectile-bookmarks.eld
 bookmarks
@@ -20,6 +21,10 @@ auto-save-list
 semanticdb
 tramp
 .\#*
+
+# Site elisp
+# Force add files if needed
+site-elisp/
 
 # custom variables
 emacs-custom.el

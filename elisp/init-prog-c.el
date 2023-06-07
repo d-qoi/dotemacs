@@ -12,7 +12,6 @@
                  . ("clangd"
                     "-j=8"
                   "--log=error"
-                  "--malloc-trim"
                   "--background-index"
                   "--clang-tidy"
                   "--cross-file-rename"
@@ -33,6 +32,11 @@
   (c-toggle-electric-state 1))
 (add-hook 'c-initialization-hook 'd-qoi/c-initialization-hook)
 
+(when (and (treesit-available-p) (treesit-language-available-p 'c))
+  (add-hook 'c-ts-mode-hook (lambda () (run-hooks 'c-mode-hook))))
+
+(when (and (treesit-available-p) (treesit-language-available-p 'cpp))
+  (add-hook 'c++-ts-mode-hook (lambda () (run-hooks 'c++-mode-hook))))
 
 
 (provide 'init-prog-c)
