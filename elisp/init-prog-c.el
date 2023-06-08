@@ -1,4 +1,4 @@
-;; -*- lexical-binding -*-
+;; -*- lexical-binding: t -*-
 
 (require 'eglot)
 
@@ -33,10 +33,14 @@
 (add-hook 'c-initialization-hook 'd-qoi/c-initialization-hook)
 
 (when (and (treesit-available-p) (treesit-language-available-p 'c))
-  (add-hook 'c-ts-mode-hook (lambda () (run-hooks 'c-mode-hook))))
+  (add-hook 'c-ts-mode-hook (lambda () (run-hooks 'c-mode-hook)))
+  (add-to-list 'semantic-new-buffer-setup-functions
+               '(c-ts-mode . semantic-default-c-setup)))
 
 (when (and (treesit-available-p) (treesit-language-available-p 'cpp))
-  (add-hook 'c++-ts-mode-hook (lambda () (run-hooks 'c++-mode-hook))))
+  (add-hook 'c++-ts-mode-hook (lambda () (run-hooks 'c++-mode-hook)))
+  (add-to-list 'semantic-new-buffer-setup-functions
+               '(c++-ts-mode . semantic-default-c-setup)))
 
 
 (provide 'init-prog-c)

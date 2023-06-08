@@ -6,6 +6,15 @@
 (use-package diminish
   :straight t)
 
+(use-package f
+  :straight t)
+
+(use-package dash
+  :straight t)
+
+(use-package s
+  :straight t)
+
 (use-package which-key
   :straight t
   :diminish

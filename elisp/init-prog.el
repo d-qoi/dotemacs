@@ -34,9 +34,12 @@
                             company-keywords)))
   (global-company-mode 1))
 
-(use-package semantic
-  :init
-  (semantic-mode))
+(require 'semantic)
+(require 'project)
+(defun d-qoi/project-semantic-project-root-function (dir)
+  (if-let ((root (project-current nil dir)))
+      (project-root root)))
+(add-to-list 'semanticdb-project-root-functions 'd-qoi/project-semantic-project-root-function)
 
 ;; We follow a suggestion by company maintainer u/hvis:
 ;; https://www.reddit.com/r/emacs/comments/nichkl/comment/gz1jr3s/

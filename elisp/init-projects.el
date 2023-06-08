@@ -1,26 +1,35 @@
-;; -*- lexical-binding -*-
+;; -*- lexical-binding: t -*-
 
 (require 'use-package)
 
-;; (defun dd/projectile-proj-find-function (dir)
-;;   (let ((root (projectile-project-root dir)))
-;;     (and root (cons 'transient root))))
-
-;; (use-package projectile
-;;   :straight t
-;;   :demand t
-;;   :disabled
-;;   :config
-;;   (projectile-mode 1)
-;;   :bind
-;;   (:map projectile-mode-map
-;;         ("C-c p" . projectile-command-map)))
 
 (require 'project)
 (if (not (boundp 'project-vc-extra-root-markers))
     (setq project-vc-extra-root-markers '()))
-;;  (add-to-list 'project-find-functions
-;;               'dd/projectile-proj-find-function))
+
+
+(defcustom project-local-identifier ".project"
+  "You can specify a single filename or a list of names."
+  :type '(choice (string :tag "Single file")
+                 (repeat (string :tag "Filename")))
+  :group 'project)
+
+(cl-defmethod project-root ((project (head local)))
+  "Return root directory of current PROJECT."
+  (cdr project))
+
+(defun project-local-try-local (dir)
+  "Determine if DIR is a non-VC project.
+DIR must include a file with the name determined by the
+variable `project-local-identifier' to be considered a project."
+  (if-let ((root (if (listp project-local-identifier)
+                     (seq-some (lambda (n)
+                                 (locate-dominating-file dir n))
+                               project-local-identifier)
+                   (locate-dominating-file dir project-local-identifier))))
+      (cons 'local root)))
+
+(add-to-list 'project-find-functions 'project-local-try-local)
 
 (use-package transient
   :straight t)
