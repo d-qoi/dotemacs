@@ -1,4 +1,4 @@
-;; -*- lexical-binding -*-
+;; -*- lexical-binding: t -*-
 
 (use-package iedit
   :straight t

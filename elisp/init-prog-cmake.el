@@ -1,4 +1,4 @@
-;; -*- lexical-binding -*-
+;; -*- lexical-binding: t -*-
 
 (defconst *cmake*
   (executable-find "cmake")
