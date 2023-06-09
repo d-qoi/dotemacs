@@ -14,7 +14,7 @@
   :group 'org-agenda)
 
 (use-package org-mode
-  :type built-in
+  :straight (:type built-in)
   :mode "\\.org$"
   :bind
   ("C-c a a" . org-agenda)

@@ -5,7 +5,7 @@
   (defun treesit-available-p () nil))
 
 (use-package eglot
-  :type built-in)
+  :straight (:type built-in))
 
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
