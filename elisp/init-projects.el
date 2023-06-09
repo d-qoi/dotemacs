@@ -23,7 +23,7 @@ variable `project-local-identifier' to be considered a project."
                    (locate-dominating-file dir project-local-identifier))))
       (cons 'local root)))
 
-(use-package 'project
+(use-package project
   :straight (:type built-in)
   :config
   (if (not (boundp 'project-vc-extra-root-markers))

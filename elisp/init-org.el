@@ -13,9 +13,10 @@
   :type '(file)
   :group 'org-agenda)
 
-(use-package org-mode
+(use-package org
   :straight (:type built-in)
   :mode "\\.org$"
+  :demand t
   :bind
   ("C-c a a" . org-agenda)
   ("C-c a l" . org-store-link)
@@ -42,7 +43,8 @@
 (use-package org-roam
   :straight (:host github :repo "org-roam/org-roam"
                    :files (:defaults "extensions/*"))
-  :after org-mode
+  :after org
+  :demand t
   :custom
   (org-roam-directory (file-truename "~/org/"))
   (org-roam-capture-templates
