@@ -35,6 +35,7 @@
   (global-company-mode 1))
 
 (require 'semantic)
+(require 'semantic/db)
 (require 'project)
 (defun d-qoi/project-semantic-project-root-function (dir)
   (if-let ((root (project-current nil dir)))
