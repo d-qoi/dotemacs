@@ -25,6 +25,7 @@ variable `project-local-identifier' to be considered a project."
 
 (use-package project
   :straight (:type built-in)
+  :demand t
   :config
   (if (not (boundp 'project-vc-extra-root-markers))
       (setq project-vc-extra-root-markers '()))
