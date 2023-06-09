@@ -36,6 +36,7 @@
    (:map term-mode-map
          ("C-t" . d-qoi/term-toggle-line-char))))
 
+(require 'eshell)
 (use-package eat
   :straight (eat :type git
                  :host codeberg
@@ -45,9 +46,9 @@
                          ("terminfo/65" "terminfo/65/*")
                          ("integration" "integration/*")
                          (:exclude ".dir-locals.el" "*-tests.el")))
-  :after eshell
   :bind
-  (("C-$" . eat))
-  :hook (eshell-load . #'eat-eshell-visual-command-mode))
+  ("C-$" . eat)
+  :custom
+  ((eat-kill-buffer-on-exit t)))
 
 (provide 'init-nav)

@@ -5,9 +5,8 @@
 
 (use-package eshell
   :straight (:type built-in)
-  :bind
-  (:map eshell-mode-map
-        ("M-R" . eshell-insert-history))
+  :after esh-mode
+  :hook (eshell-load . #'eat-eshell-visual-command-mode)
   :init
   (setq eshell-error-if-no-glob t
         ;; This jumps back to the prompt:
@@ -23,6 +22,8 @@
         ;; executables `chmod' and `find' and their Emacs counterpart?
         ;; Me neither, so this makes it act a bit more shell-like:
         eshell-prefer-lisp-functions nil)
+  :bind (:map eshell-mode-map
+         ("M-R" . eshell-insert-history))
   :config
   (defvar eshell-variable-aliases-list nil "Autoloading this eshell-defined variable")
   (add-to-list 'eshell-variable-aliases-list '("$"  ha-eshell-output-text))
@@ -53,7 +54,89 @@
               (guid    (seq uuid)))
        (rxt-elisp-to-pcre (rx ,@expressions)))))
 
+;;; let's make opts work
+(defun eshell-getopts (defargs args)
+  "Return hash table of ARGS parsed against DEFARGS.
+Where DEFARGS is an argument definition, a list of plists.
+For instance:
+   '((:name number :short \"n\"                 :parameter integer :default 0)
+     (:name title  :short \"t\" :long \"title\" :parameter string)
+     (:name debug  :short \"d\" :long \"debug\"))
 
+If ARGS, a list of _command line parameters_ is something like:
+
+    '(\"-d\" \"-n\" \"4\" \"--title\" \"How are that\" \"this\" \"is\" \"extra\")
+
+The hashtable return would contain these entries:
+
+    debug t
+    number 4  ; as a number
+    title \"How are that\" ; as a string
+    parameters (\"this\" \"is\" \"extra\") ; as a list of strings "
+  (let ((retmap    (make-hash-table))
+        (short-arg (rx string-start "-" (group alnum)))
+        (long-arg  (rx string-start "--" (group (1+ any)))))
+
+    ;; Let's not pollute the Emacs name space with tiny functions, as
+    ;; well as we want these functions to have access to the "somewhat
+    ;; global variables", `retmap' and `defargs', we use the magical
+    ;; `cl-labels' macro to define small functions:
+
+    (cl-labels ((match-short (str defarg)
+                  ;; Return t if STR matches against DEFARG's short label:
+                  (and (string-match short-arg str)
+                       (string= (match-string 1 str)
+                                (plist-get defarg :short))))
+
+                (match-long (str defarg)
+                  ;; Return t if STR matches against DEFARG's long label:
+                  (and (string-match long-arg str)
+                       (string= (match-string 1 str)
+                                (plist-get defarg :long))))
+
+                (match-arg (str defarg)
+                  ;; Return DEFARG if STR matches its definition (and it's a string):
+                  (when (and (stringp str)
+                             (or (match-short str defarg)
+                                 (match-long str defarg)))
+                    defarg))
+
+                (find-argdef (str)
+                  ;; Return entry in DEFARGS that matches STR:
+                  (car (--filter (match-arg str it) defargs)))
+
+                (process-args (arg parm rest)
+                  (when arg
+                    (let* ((defarg (find-argdef arg))
+                           (key    (plist-get defarg :name)))
+                      (cond
+                       ;; If ARG doesn't match any definition, add
+                       ;; everything else to PARAMETERS key:
+                       ((null defarg)
+                        (puthash 'parameters (cons arg rest) retmap))
+
+                       ((plist-get defarg :help)
+                        (error (documentation (plist-get defarg :help))))
+
+                       ;; If argument definition has a integer parameter,
+                       ;; convert next entry as a number and process rest:
+                       ((eq (plist-get defarg :parameter) 'integer)
+                        (puthash key (string-to-number parm) retmap)
+                        (process-args (cadr rest) (caddr rest) (cddr rest)))
+
+                       ;; If argument definition has a parameter, use
+                       ;; the next entry as the value and process rest:
+                       ((plist-get defarg :parameter)
+                        (puthash key parm retmap)
+                        (process-args (cadr rest) (caddr rest) (cddr rest)))
+
+                       ;; No parameter? Store true for its key:
+                       (t
+                        (puthash key t retmap)
+                        (process-args (car rest) (cadr rest) (cdr rest))))))))
+
+      (process-args (car args) (cadr args) (cdr args))
+      retmap)))
 
 ;;; Don't let things pause terminal output
 (setenv "PAGER" "cat")
@@ -127,6 +210,7 @@ Call FUN2 on all the rest of the elements in ARGS."
   :lighter " ebb"
   :keymap (let ((map (make-sparse-keymap)))
             (define-key map (kbd "C-c C-q") 'ha-eshell-ebbflow-return)
+            (define-key map (kbd "C-c C-c") 'ha-eshell-ebbflow-return)
             map))
 
 (defun eshell-flow-buffer-contents (buffer-name)
