@@ -3,9 +3,11 @@
 (require 'use-package)
 (unless (require 'treesit nil t)
   (defun treesit-available-p () nil))
-(require 'eglot)
 
-(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+(use-package eglot
+  :type built-in)
+
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
 (use-package yasnippet
   :straight (yasnippet :host github :repo "joaotavora/yasnippet")

@@ -2,12 +2,6 @@
 
 (require 'use-package)
 
-
-(require 'project)
-(if (not (boundp 'project-vc-extra-root-markers))
-    (setq project-vc-extra-root-markers '()))
-
-
 (defcustom project-local-identifier ".project"
   "You can specify a single filename or a list of names."
   :type '(choice (string :tag "Single file")
@@ -29,7 +23,13 @@ variable `project-local-identifier' to be considered a project."
                    (locate-dominating-file dir project-local-identifier))))
       (cons 'local root)))
 
-(add-to-list 'project-find-functions 'project-local-try-local)
+(use-package 'project
+  :type built-in
+  :config
+  (if (not (boundp 'project-vc-extra-root-markers))
+      (setq project-vc-extra-root-markers '()))
+  (add-hook 'project-find-functions 'project-local-try-local))
+
 
 (use-package transient
   :straight t)

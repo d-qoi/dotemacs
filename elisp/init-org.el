@@ -6,12 +6,15 @@
   "The file list default for org-agenda-files,
    creates it if not created,
    propogates it with org-agenda-file-default"
-  :type '(file))
+  :type '(file)
+  :group 'org-agenda)
 (defcustom *org-agenda-file-default* "~/todo.org"
   "Default initial file for org-mode"
-  :type '(file))
+  :type '(file)
+  :group 'org-agenda)
 
 (use-package org-mode
+  :type built-in
   :mode "\\.org$"
   :bind
   ("C-c a a" . org-agenda)
@@ -39,6 +42,7 @@
 (use-package org-roam
   :straight (:host github :repo "org-roam/org-roam"
                    :files (:defaults "extensions/*"))
+  :after org-mode
   :custom
   (org-roam-directory (file-truename "~/org/"))
   (org-roam-capture-templates
@@ -66,6 +70,8 @@
          ;; Dailies
          ("C-c n j" . org-roam-dailies-capture-today))
   :config
+  (unless (file-exists-p org-roam-directory)
+    (make-directory org-roam-directory t))
   ;; If you're using a vertical completion framework, you might want a more informative completion interface
   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   (org-roam-db-autosync-mode)

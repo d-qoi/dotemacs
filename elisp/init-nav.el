@@ -26,14 +26,28 @@
     (hl-line-mode 1))))
 
 (use-package multi-term
+  :straight t
   :commands (multi-term)
   :bind
-  (("C-$" . multi-term)
-   (:map term-raw-map
+  ((:map term-raw-map
          ("C->" . multi-term-next)
          ("C-<" . multi-term-prev)
          ("C-t" . d-qoi/term-toggle-line-char))
    (:map term-mode-map
          ("C-t" . d-qoi/term-toggle-line-char))))
+
+(use-package eat
+  :straight (eat :type git
+                 :host codeberg
+                 :repo "akib/emacs-eat"
+                 :files ("*.el" ("term" "term/*.el") "*.texi"
+                         "*.ti" ("terminfo/e" "terminfo/e/*")
+                         ("terminfo/65" "terminfo/65/*")
+                         ("integration" "integration/*")
+                         (:exclude ".dir-locals.el" "*-tests.el")))
+  :after eshell
+  :bind
+  (("C-$" . eat))
+  :hook (eshell-load . #'eat-eshell-visual-command-mode))
 
 (provide 'init-nav)

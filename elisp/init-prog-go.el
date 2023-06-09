@@ -2,9 +2,10 @@
 
 (require 'eglot)
 (require 'use-package)
+(require 'project)
+
 (unless (require 'treesit nil t)
   (defun treesit-available-p () nil))
-(require 'project)
 
 (defconst *golang*
   (executable-find "go")
@@ -21,10 +22,10 @@
 (cl-defmethod project-root ((project (head go-module)))
   (cdr project))
 
-(add-hook 'project-find-functions #'project-find-go-module)
+(add-hook 'project-find-functions 'project-find-go-module)
 
 (defun eglot-format-buffer-on-save ()
-  (add-hook 'before-save-hook #'eglot-format-buffer -10 t))
+  (add-hook 'before-save-hook 'eglot-format-buffer -10 t))
 
 (add-to-list 'eglot-workspace-configuration
              '(:gopls .
@@ -33,7 +34,7 @@
 
 (when (and *golang* *gopls*)
   (add-hook 'go-mode-hook 'eglot-ensure)
-  (add-hook 'go-mode-hook #'eglot-format-buffer-on-save))
+  (add-hook 'go-mode-hook 'eglot-format-buffer-on-save))
 
 (use-package go-mode
   :straight (go-mode :repo "dominikh/go-mode.el"))
