@@ -5,12 +5,12 @@
 (add-to-list 'load-path (expand-file-name "site-elisp" user-emacs-directory))
 
 ;; Autoload from site-elisp, unsure where to do this, so doing it now
-(let ((generated-file (expand-file-name "site-elisp/autoloads.el" user-emacs-directory))
-      (site-elisp-dir (expand-file-name "site-elisp" user-emacs-directory)))
+(setq generated-autoload-file (expand-file-name "site-elisp/autoloads.el" user-emacs-directory))
+(let ((site-elisp-dir (expand-file-name "site-elisp" user-emacs-directory)))
   (if (version< emacs-version "29")
-      (update-directory-autoloads site-elisp-dir)
-    (loaddefs-generate site-elisp-dir generated-file))
-  (load generated-file nil t))
+	(update-directory-autoloads site-elisp-dir)
+    (loaddefs-generate site-elisp-dir generated-autoload-file))
+  (load generated-autoload-file nil t))
 
 
 ;; package setup
