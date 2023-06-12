@@ -43,6 +43,7 @@
   (if-let ((root (project-current nil dir)))
       (project-root root)))
 (add-to-list 'semanticdb-project-root-functions 'd-qoi/project-semantic-project-root-function)
+(semantic-mode 1)
 
 ;; We follow a suggestion by company maintainer u/hvis:
 ;; https://www.reddit.com/r/emacs/comments/nichkl/comment/gz1jr3s/
