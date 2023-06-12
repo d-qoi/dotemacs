@@ -33,4 +33,7 @@
   :config
   (global-anzu-mode 1))
 
+(use-package wgrep
+  :straight (:repo "mhayashi1120/Emacs-wgrep"))
+
 (provide 'init-editing)

@@ -80,3 +80,6 @@ annotations
 # projects and things
 projectile-bookmarks.*
 ede-projects.el
+
+# games
+games/

@@ -49,11 +49,11 @@
   :init
   (setq vertico-multiform-commands
         '((consult-imenu . (buffer indexed))
-          (consult-line . buffer)
-          (execute-extended-command unobtrusive)
+          (consult-line buffer)
+          (execute-extended-command flat)
           (describe-symbol (vertico-sort-function . vertico-sort-alpha))))
   (setq vertico-multiform-categories
-        '((file . (buffer grid))
+        '((file . (buffer indexed))
           (imenu . (:not indexed mouse))
           (describe-symbol (vertico-sort-function . vertico-sort-alpha))))
   :config
@@ -186,7 +186,9 @@
   :demand t
   :config
   (add-to-list 'orderless-affix-dispatch-alist
-               '(62 . substring)) ;; 62 is '>'
+               '(?> . substring))  ;; 62 is '>'
+  (add-to-list 'orderless-affix-dispatch-alist
+               '(?< . orderless-prefixes))
   :custom
   (completion-styles '(substring orderless basic))
   (completion-category-defaults nil)
