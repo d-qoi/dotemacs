@@ -22,7 +22,8 @@
         ;; executables `chmod' and `find' and their Emacs counterpart?
         ;; Me neither, so this makes it act a bit more shell-like:
         eshell-prefer-lisp-functions nil)
-  :bind (:map eshell-mode-map
+  :bind (("M-!" . eshell-command)
+         :map eshell-mode-map
          ("M-R" . eshell-insert-history))
   :config
   (defvar eshell-variable-aliases-list nil "Autoloading this eshell-defined variable")
