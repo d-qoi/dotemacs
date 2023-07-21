@@ -1,6 +1,7 @@
 ;; -*- lexical-binding: t -*-
 
 (require 'use-package)
+
 (unless (require 'treesit nil t)
   (defun treesit-available-p () nil))
 
