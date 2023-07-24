@@ -74,6 +74,7 @@
 (require 'init-prog-c)
 (require 'init-prog-cmake)
 (require 'init-prog-go)
+(require 'init-prog-py)
 
 (require 'init-helpers)
 

@@ -18,22 +18,6 @@
   "Where is the elisp file for clang-format?"
   :group 'c)
 
-(when *clangd*
-  (add-to-list 'eglot-server-programs
-               '((c-mode c++-mode)
-                 . ("clangd"
-                    "-j=8"
-                    "--pretty"
-                    "--log=verbose"
-                    "--background-index"
-                    "--clang-tidy"
-                    "--completion-style=detailed"
-                    "--pch-storage=memory"
-                    "--header-insertion=never"
-                    "--header-insertion-decorators=0")))
-  (add-hook 'c++-mode-hook 'eglot-ensure)
-  (add-hook 'c-mode-hook 'eglot-ensure))
-
 (setq c-basic-offset 4
       c-default-style '((java-mode . "java")
                         (awk-mode . "awk")
@@ -56,34 +40,44 @@
     (add-to-list 'semantic-new-buffer-setup-functions
                  '(c++-ts-mode . semantic-default-c-setup))))
 
-;; pull from melpa if needed
-(use-package clang-format
-  :if (and *clang-format* (not *clang-format-elisp-file*))
-  :straight t
-  :bind (:map c-mode-base-map
-              ("C-M-TAB" . clang-format-region))
-  :init
-  (message "Clang-format pulled from Melpa"))
+(defun d-qoi/init-prog-c-after-init ()
+  (when *clangd*
+    (add-to-list 'eglot-server-programs
+                 '((c-mode c++-mode)
+                   . ("clangd"
+                      "-j=8"
+                      "--pretty"
+                      "--log=verbose"
+                      "--background-index"
+                      "--clang-tidy"
+                      "--completion-style=detailed"
+                      "--pch-storage=memory"
+                      "--header-insertion=never"
+                      "--header-insertion-decorators=0")))
+    (add-hook 'c++-mode-hook 'eglot-ensure)
+    (add-hook 'c-mode-hook 'eglot-ensure))
 
-;; pull from melpa if needed
-(use-package clang-format
-  :if (and *clang-format* *clang-format-elisp-file*)
-  :straight (:type built-in)
-  :bind (:map c-mode-base-map
-              ("C-M-TAB" . clang-format-region))
-  :init
-  (push (f-dirname (car *clang-format-elisp-file*)) load-path)
-  (message "Clang-format found locally"))
+  ;; Pulled into after-init function so *clang-format* can be set in customise
+  ;; pull from melpa if needed
+  (use-package clang-format
+    :if (and *clang-format* (not *clang-format-elisp-file*))
+    :straight t
+    :bind (:map c-mode-base-map
+                ("C-M-TAB" . clang-format-region))
+    :init
+    (message "Clang-format pulled from Melpa"))
 
-(use-package flymake-google-cpplint
-  :if *cpplint*
-  :disabled
-  :straight (flymake-google-cpplint :host github :repo "flymake/flymake-google-cpplint")
-  :hook ((c-mode . flymake-google-cpplint-load)
-         (c++-mode . flymake-google-cpplint-load))
-  :custom
-  (flymake-google-cpplint-command *cpplint*))
+  ;; pull from melpa if needed
+  (use-package clang-format
+    :if (and *clang-format* *clang-format-elisp-file*)
+    :straight (:type built-in)
+    :bind (:map c-mode-base-map
+                ("C-M-TAB" . clang-format-region))
+    :init
+    (push (f-dirname (car *clang-format-elisp-file*)) load-path)
+    (message "Clang-format found locally")))
 
+(add-hook 'after-init-hook 'd-qoi/init-prog-c-after-init)
 
 ;; TODO Pull cpplint into its own file.
 
@@ -93,7 +87,7 @@
   "cpplint config"
   :group 'c)
 
-(defcustom *cpplint*
+(defcustom cpplint-executable
   (executable-find "cpplint")
   "Do we have cpplint?"
   :group 'cpplint)
@@ -146,7 +140,7 @@ is provided for each category like 'build/class'."
   "Construct a command that flymake can use to check C/C++ source."
   (remove nil
           (list
-           *cpplint*
+           cpplint-executable
            "--output=emacs"
            (format "--verbose=%d" cpplint-verbosity)
            (if cpplint-filter (format "--filter=%s" cpplint-filter))
@@ -157,8 +151,8 @@ is provided for each category like 'build/class'."
 (defun cpplint-flymake (report-fn &rest _args)
   "Flymake CPPLine backend.
 Copied mostly from https://www.gnu.org/software/emacs/manual/html_node/flymake/An-annotated-example-backend.html"
-  (unless *cpplint*
-    (error "cpplint not found, define *cpplint*"))
+  (unless cpplint-executable
+    (error "cpplint not found, define cpplint-executable"))
 
   (when (process-live-p cpplint--flymake-proc)
     (kill-process cpplint--flymake-proc))
@@ -226,7 +220,10 @@ Copied mostly from https://www.gnu.org/software/emacs/manual/html_node/flymake/A
     (message "cpplint added")
     (add-hook 'flymake-diagnostic-functions 'cpplint-flymake)))
 
-(when *cpplint*
-  (add-hook 'eglot-managed-mode-hook 'cpplint-setup-flymake-backend))
+(defun cpplint-flymake-after-init ()
+  (when cpplint-executable
+    (add-hook 'eglot-managed-mode-hook 'cpplint-setup-flymake-backend)))
+
+(add-hook 'after-init-hook 'cpplint-flymake-after-init)
 
 (provide 'init-prog-c)

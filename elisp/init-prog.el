@@ -86,11 +86,11 @@
 (when (treesit-available-p)
   (setq treesit-extra-load-path (list (expand-file-name *tree-sit-dist-dir* user-emacs-directory))))
 
-;; (use-package treesit-auto
-;;   :straight t
-;;   :if (treesit-available-p)
-;;   :demand t
-;;   :config
-;;   (global-treesit-auto-mode))
+(use-package treesit-auto
+  :straight t
+  :if (treesit-available-p)
+  :demand t
+  :config
+  (global-treesit-auto-mode))
 
 (provide 'init-prog)
