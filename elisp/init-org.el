@@ -15,7 +15,7 @@
 
 (use-package org
   :straight (:type built-in)
-  :mode "\\.org$"
+  :mode ("\\.org$" . org-mode)
   :demand t
   :bind
   ("C-c a a" . org-agenda)
@@ -56,13 +56,13 @@
       :if-new (file+head "main/${slug}.org"
                          "#+title: ${title}\n")
       :immediate-finish t
-      :unnarrowed t
+      ;; :unnarrowed t
       :empty-lines 1)
      ("r" "references" plain "%?"
       :if-new (file+head "refs/${slug}.org"
                          "#+title: ${title}\n")
       :immediate-finish t
-      :unnarrowed t
+      ;; :unnarrowed t
       :empty-lines 1)))
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
@@ -96,6 +96,7 @@
 
 (use-package org-novelist
   :straight (:host github :repo "sympodius/org-novelist")
+  :after org
   :bind
   (:map org-novelist-mode-map
         ("C-c N p" . org-novelist-new-prop)

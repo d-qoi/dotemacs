@@ -84,6 +84,6 @@
 (use-package flymake-google-cpplint
   :if (executable-find "cpplint")
   :straight (:host github :repo "d-qoi/flymake-google-cpplint")
-  :hook (eglot-managed-mode . cpplint-hook-flymake-backend))
+  :hook (eglot-managed-mode . cpplint-hook-flymake-diag-function))
 
 (provide 'init-prog-c)
