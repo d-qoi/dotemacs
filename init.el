@@ -1,11 +1,11 @@
 ;;; init.el --- -*- lexical-binding: t -*-
 
-(require 'find-lisp)
-(require 'autoload)
-
 (setq custom-file (expand-file-name "emacs-custom.el" user-emacs-directory))
+
 (add-to-list 'load-path (expand-file-name "elisp" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "site-elisp" user-emacs-directory))
+
+(require 'init-helpers)
 
 ;; Autoload from site-elisp, unsure where to do this, so doing it now
 (setq site-elisp-autoload-file (expand-file-name "site-elisp/autoloads.el" user-emacs-directory))
@@ -22,19 +22,6 @@
   (d-qoi/generate-site-elisp-autoload))
 
 (load site-elisp-autoload-file nil t)
-
-(defconst system-emacs-dirs
-  '("/usr/share/emacs/"
-    "/usr/local/share/emacs/"))
-
-(defun d-qoi/find-lisp-in-dirs (dirs name)
-  (when dirs
-    (let* ((current-dir (car dirs))
-          (next-dirs (cdr dirs))
-          (result (find-lisp-find-files current-dir name)))
-      (if result
-          result
-        (d-qoi/find-lisp-in-dirs next-dirs name)))))
 
 ;; package setup
 (defvar bootstrap-version)
@@ -75,8 +62,7 @@
 (require 'init-prog-cmake)
 (require 'init-prog-go)
 (require 'init-prog-py)
-
-(require 'init-helpers)
+(require 'init-prog-web)
 
 ;; One of the last things to do.
 (if (file-exists-p custom-file)
