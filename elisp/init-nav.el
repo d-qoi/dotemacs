@@ -3,6 +3,7 @@
 (require 'use-package)
 
 (use-package dired
+  :straight (:type built-in)
   :bind
   (("C-x C-j" . dired-jump)
    ("C-x j" . dired-jump-other-window))
@@ -27,6 +28,7 @@
 
 (use-package multi-term
   :straight t
+  :disabled
   :commands (multi-term)
   :bind
   ((:map term-raw-map
@@ -50,5 +52,8 @@
   ("C-$" . eat)
   :custom
   ((eat-kill-buffer-on-exit t)))
+
+(use-package docker
+  :straight t)
 
 (provide 'init-nav)

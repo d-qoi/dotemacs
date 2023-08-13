@@ -16,6 +16,11 @@
   "Find the Python language servers that are available"
   :group 'python)
 
+(defcustom *python-black*
+  (executable-find "black-macchiato")
+  "Do we have Black and Black-macchiato? The executable of black-macchiato"
+  :group 'python)
+
 (use-package python
   :straight (:type built-in))
 
