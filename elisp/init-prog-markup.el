@@ -15,4 +15,7 @@
   :bind (:map markdown-mode-map
          ("C-c C-e" . markdown-do)))
 
+(use-package protobuf-mode
+  :straight t)
+
 (provide 'init-prog-markup)
