@@ -210,7 +210,9 @@
   :after marginalia
   :bind
   (("C-." . embark-act)         ;; pick some comfortable binding
+   ("C-c e a" . embark-act)
    ("C-;" . embark-dwim)        ;; good alternative: M-.
+   ("C-c e d" . embark-dwim)
    ("C-h B" . embark-bindings)) ;; alternativ efor `describe-bindings'
   :init
   ;; Optionally replace the key help with a completing-read interface
