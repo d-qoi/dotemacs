@@ -22,7 +22,13 @@
   :group 'python)
 
 (use-package python
-  :straight (:type built-in))
+  :straight (:type built-in)
+  :init
+  (push
+   `((python-mode python-ts-mode) .
+     ,(eglot-alternatives
+       '(("pyright-langserver" "--stdio") "pylsp" "pyls" "jedi-language-server")))
+   eglot-server-programs))
 
 (use-package pyvenv
   :straight t
