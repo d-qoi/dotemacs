@@ -40,60 +40,6 @@
           (file *org-agenda-file-default*)
           "* TODO %?\n"))))
 
-(use-package org-roam
-  :straight (:host github :repo "org-roam/org-roam"
-                   :files (:defaults "extensions/*"))
-  :after org
-  :demand t
-  :custom
-  (org-roam-directory (file-truename "~/org/"))
-  (org-roam-capture-templates
-   '(("c" "default" plain "%?"
-      :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
-                         "#+title: ${title}\n")
-      :unnarrowed t)
-     ("m" "main" plain "%?"
-      :if-new (file+head "main/${slug}.org"
-                         "#+title: ${title}\n")
-      :immediate-finish t
-      ;; :unnarrowed t
-      :empty-lines 1)
-     ("r" "references" plain "%?"
-      :if-new (file+head "refs/${slug}.org"
-                         "#+title: ${title}\n")
-      :immediate-finish t
-      ;; :unnarrowed t
-      :empty-lines 1)))
-  :bind (("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n f" . org-roam-node-find)
-         ("C-c n g" . org-roam-graph)
-         ("C-c n i" . org-roam-node-insert)
-         ("C-c n c" . org-roam-capture)
-         ;; Dailies
-         ("C-c n j" . org-roam-dailies-capture-today))
-  :config
-  (unless (file-exists-p org-roam-directory)
-    (make-directory org-roam-directory t))
-  ;; If you're using a vertical completion framework, you might want a more informative completion interface
-  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-  (org-roam-db-autosync-mode)
-  ;; If using org-roam-protocol
-  (require 'org-roam-protocol))
-
-(use-package org-roam-ui
-  :straight
-    (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
-    :after org-roam
-;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
-;;         a hookable mode anymore, you're advised to pick something yourself
-;;         if you don't care about startup time, use
-;;  :hook (after-init . org-roam-ui-mode)
-    :config
-    (setq org-roam-ui-sync-theme t
-          org-roam-ui-follow t
-          org-roam-ui-update-on-save t
-          org-roam-ui-open-on-start t))
-
 (use-package org-novelist
   :straight (:host github :repo "sympodius/org-novelist")
   :after org
@@ -113,5 +59,86 @@
   :bind
   (:map text-mode-map
         ("C-c p" . powerthesaurus-lookup-dwim)))
+
+(use-package denote
+  :straight t
+  :after org
+  :bind (("C-c n n" . denote)
+         ("C-c n c" . denote-region) ; "contents" mnemonic
+         ("C-c n N" . denote-type)
+         ("C-c n d" . denote-date)
+         ("C-c n z" . denote-signature) ; "zettelkasten" mnemonic
+         ("C-c n s" . denote-subdirectory)
+         ("C-c n t" . denote-template)
+         ("C-c n i" . denote-link) ; "insert" mnemonic
+         ("C-c n I" . denote-add-links)
+         ("C-c n b" . denote-backlinks)
+         ("C-c n f f" . denote-find-link)
+         ("C-c n f b" . denote-find-backlink)
+         ("C-c n r" . denote-rename-file)
+         ("C-c n R" . denote-rename-file-using-front-matter)
+         :map dired-mode-map
+         ("C-c C-d C-i" . denote-link-dired-marked-notes)
+         ("C-c C-d C-r" . denote-dired-rename-marked-files)
+         ("C-c C-d C-R" . denote-dired-rename-marked-files-using-front-matter))
+  :custom
+  (denote-known-keywords '("emacs" "notes" "ideas"))
+  )
+
+
+
+;; (use-package org-roam
+;;   :straight (:host github :repo "org-roam/org-roam"
+;;                    :files (:defaults "extensions/*"))
+;;   :after org
+;;   :demand t
+;;   :custom
+;;   (org-roam-directory (file-truename "~/org/"))
+;;   (org-roam-capture-templates
+;;    '(("c" "default" plain "%?"
+;;       :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+;;                          "#+title: ${title}\n")
+;;       :unnarrowed t)
+;;      ("m" "main" plain "%?"
+;;       :if-new (file+head "main/${slug}.org"
+;;                          "#+title: ${title}\n")
+;;       :immediate-finish t
+;;       ;; :unnarrowed t
+;;       :empty-lines 1)
+;;      ("r" "references" plain "%?"
+;;       :if-new (file+head "refs/${slug}.org"
+;;                          "#+title: ${title}\n")
+;;       :immediate-finish t
+;;       ;; :unnarrowed t
+;;       :empty-lines 1)))
+;;   :bind (("C-c n l" . org-roam-buffer-toggle)
+;;          ("C-c n f" . org-roam-node-find)
+;;          ("C-c n g" . org-roam-graph)
+;;          ("C-c n i" . org-roam-node-insert)
+;;          ("C-c n c" . org-roam-capture)
+;;          ;; Dailies
+;;          ("C-c n j" . org-roam-dailies-capture-today))
+;;   :config
+;;   (unless (file-exists-p org-roam-directory)
+;;     (make-directory org-roam-directory t))
+;;   ;; If you're using a vertical completion framework, you might want a more informative completion interface
+;;   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+;;   (org-roam-db-autosync-mode)
+;;   ;; If using org-roam-protocol
+;;   (require 'org-roam-protocol))
+
+;; (use-package org-roam-ui
+;;   :straight
+;;     (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
+;;     :after org-roam
+;; ;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
+;; ;;         a hookable mode anymore, you're advised to pick something yourself
+;; ;;         if you don't care about startup time, use
+;; ;;  :hook (after-init . org-roam-ui-mode)
+;;     :config
+;;     (setq org-roam-ui-sync-theme t
+;;           org-roam-ui-follow t
+;;           org-roam-ui-update-on-save t
+;;           org-roam-ui-open-on-start t))
 
 (provide 'init-org)
