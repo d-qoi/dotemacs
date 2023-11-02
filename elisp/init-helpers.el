@@ -45,4 +45,16 @@
           result
         (d-qoi/find-lisp-in-dirs next-dirs name)))))
 
+(defun d-qoi/set-element-at-position (sequence elem position)
+  (let ((seq-val (symbol-value sequence)))
+    (if (or (null seq-val) (> position (length seq-val)))
+        (set sequence (append seq-val (list elem)))
+      (set sequence (append (seq-subseq seq-val 0 position)
+                        (list elem)
+                        (seq-subseq seq-val position))))))
+
+(defun d-qoi/add-hook-after (hook new-func existing-func)
+  (let ((position (1+ (seq-position (symbol-value hook) existing-func))))
+    (d-qoi/set-element-at-position hook new-func position)))
+
 (provide 'init-helpers)

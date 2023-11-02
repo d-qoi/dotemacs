@@ -2,6 +2,7 @@
 
 (require 'eglot)
 (require 'use-package)
+(require 'ansi-color)
 
 (defcustom *clangd*
   (executable-find "clangd")
@@ -78,6 +79,14 @@
     (message "Clang-format found locally")))
 
 (add-hook 'after-init-hook 'd-qoi/init-prog-c-after-init)
+
+;; Colorized compilation
+
+(defun d-qoi/colorize-compilation-buffer ()
+  (when (eq major-mode 'compilation-mode)
+    (ansi-color-apply-on-region compilation-filter-start (point-max))))
+
+(add-hook 'compilation-filter-hook 'd-qoi/colorize-compilation-buffer)
 
 ;; TODO Pull cpplint into its own file.
 

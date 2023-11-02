@@ -45,7 +45,12 @@ variable `project-local-identifier' to be considered a project."
   :straight t
   :after transient
   :demand t
-  :bind ("C-x g" . magit-status))
+  :bind ("C-x g" . magit-status)
+  :init
+  (d-qoi/add-hook-after
+   'magit-status-sections-hook
+   'magit-insert-ignored-files
+   'magit-insert-untracked-files))
 
 
 (provide 'init-projects)

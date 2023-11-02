@@ -1,5 +1,8 @@
 ;;; init-defaults.el --- -*- lexical-binding: t -*-
 
+(require 'windmove)
+(require 'framemove)
+
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 
@@ -41,7 +44,8 @@
 (global-set-key (kbd "C-c w") 'whitespace-mode)
 
 (when (fboundp 'windmove-default-keybindings)
-  (windmove-default-keybindings))
+  (windmove-default-keybindings)
+  (setq framemove-hook-into-windmove t))
 
 (winner-mode 1)
 
