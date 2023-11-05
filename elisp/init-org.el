@@ -81,8 +81,20 @@
          ("C-c C-d C-i" . denote-link-dired-marked-notes)
          ("C-c C-d C-r" . denote-dired-rename-marked-files)
          ("C-c C-d C-R" . denote-dired-rename-marked-files-using-front-matter))
-  :custom
-  (denote-known-keywords '("emacs" "notes" "ideas"))
+  :init
+  (setq denote-directory "~/Documents/Notes/")
+  (setq denote-known-keywords '("notes" "ideas"))
+  (setq denote-infer-keywords t)
+  (setq denote-sort-keywords t)
+  (setq denote-prompts '(title keywords))
+  (setq denote-excluded-directories-regexp nil)
+  (setq denote-excluded-keywords-regexp nil)
+  (setq denote-date-prompt-use-org-read-date t)
+  (setq denote-date-format nil)
+
+  ;; By default, we do not show the context of links.  We just display
+  ;; file names.  This provides a more informative view.
+  (setq denote-backlinks-show-context t)
   )
 
 
