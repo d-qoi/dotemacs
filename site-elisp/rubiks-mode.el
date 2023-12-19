@@ -17,8 +17,7 @@
   (if rubiks-timer-mode
       (progn
         (switch-to-buffer "*Rubik's Timer*")
-        (rubiks-print "Initial scramble: %s" (rubiks-timer-gen-scramble))
-        (setq buffer-read-only t))
+        (rubiks-print "Initial scramble: %s" (rubiks-timer-gen-scramble)))
     (kill-buffer "*Rubik's Timer*")))
 
 (defun rubiks-timer-update-lighter (text)

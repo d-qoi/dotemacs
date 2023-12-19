@@ -1,6 +1,7 @@
 ;; -*- lexical-binding: t -*-
 
 (require 'use-package)
+(require 'dired+)
 
 (use-package dired
   :straight (:type built-in)

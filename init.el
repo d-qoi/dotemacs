@@ -72,3 +72,4 @@
 (add-hook 'kill-emacs-query-functions
 	  'custom-prompt-customize-unsaved-options)
 (put 'narrow-to-region 'disabled nil)
+(put 'dired-find-alternate-file 'disabled nil)

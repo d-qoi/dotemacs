@@ -8,6 +8,12 @@
                  (repeat (string :tag "Filename")))
   :group 'project)
 
+(defun d-qoi/project-touch-and-remember ()
+  "Create project-local-identifier and remember in current dir."
+  (interactive)
+  (shell-command (format "touch %s" project-local-identifier))
+  (project-remember-projects-under default-directory))
+
 (cl-defmethod project-root ((project (head local)))
   "Return root directory of current PROJECT."
   (cdr project))
@@ -45,12 +51,12 @@ variable `project-local-identifier' to be considered a project."
   :straight t
   :after transient
   :demand t
-  :bind ("C-x g" . magit-status)
-  :init
-  (d-qoi/add-hook-after
-   'magit-status-sections-hook
-   'magit-insert-ignored-files
-   'magit-insert-untracked-files))
+  :bind ("C-x g" . magit-status))
+  ;; :init
+  ;; (d-qoi/add-hook-after
+  ;;  'magit-status-sections-hook
+  ;;  'magit-insert-ignored-files
+  ;;  'magit-insert-untracked-files))
 
 
 (provide 'init-projects)

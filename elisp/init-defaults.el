@@ -96,5 +96,8 @@
 ;; ttm menu bind again
 (global-set-key (kbd "C-z t") 'tmm-menubar)
 
+(require 'tab-bar)
+(keymap-set tab-prefix-map "TAB" #'tab-next)
+
 (provide 'init-defaults)
 ;;; setup-general.el ends here
