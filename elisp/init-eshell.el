@@ -194,6 +194,7 @@ Call FUN2 on all the rest of the elements in ARGS."
 
 
 ;;; Ebb and Flow
+;;; See https://github.com/howardabrams/hamacs/blob/main/ha-eshell.org
 
 (defvar ha-eshell-ebbflow-buffername "*eshell-edit*"
   "The name of the buffer that eshell can use to store temporary input/output.")
@@ -201,10 +202,10 @@ Call FUN2 on all the rest of the elements in ARGS."
 (defun ha-eshell-ebbflow-return ()
   "Close the ebb-flow window and return to Eshell session."
   (interactive)
-  (when (boundp 'ha-eshell-ebbflow-close-window)
-    (bury-buffer))
-  (when (boundp 'ha-eshell-ebbflow-return-buffer)
-    (pop-to-buffer ha-eshell-ebbflow-return-buffer)))
+  (if (and (boundp 'ha-eshell-ebbflow-return-buffer)
+           (bufferp 'ha-eshell-ebbflow-return-buffer))
+      (pop-to-buffer ha-eshell-ebbflow-return-buffer)
+    (bury-buffer)))
 
 (define-minor-mode ebbflow-mode
   "Get your foos in the right places."
@@ -285,6 +286,15 @@ Usage: flow [OPTION] [BUFFER ...]
       (:insert   nil)
       (:replace (delete-region (point-min) (point-max))))))
 
+(defun ha-eshell-ebb-string (insert-location space-separator-p command-results)
+  "Insert the COMMAND-RESULTS into the `ha-eshell-ebbflow-buffername`.
+Contents are placed based on INSERT-LOCATION and, if given, separated
+by SEPARATOR (which defaults to a space)."
+  (let* ((sep (if space-separator-p " " "\n"))
+         (str (string-join (-flatten command-results) sep)))
+    (ha-eshell-ebb-switch-to-buffer insert-location)
+    (insert str)))
+
 (defun ha-eshell-ebb-command (insert-location command-parts)
   "Call `eshell-command' with the COMMAND-PARTS.
 Inserts the output into `ha-eshell-ebbflow-buffername'"
@@ -299,30 +309,40 @@ Inserts the output into `ha-eshell-ebbflow-buffername'"
     (insert-file file)
     (insert "\n")))
 
-(defun ha-eshell-ebb-output (insert-location)
-  "Grab output from previous eshell command, inserting it into our buffer.
-Gives the INSERT-LOCATION to `ha-eshell-ebb-switch-to-buffer'."
-  (let* ((start  (save-excursion
+(defun ha-eshell-last-output ()
+  "Return contents of the last command execusion in an Eshell buffer."
+  (let ((start  (save-excursion
                    (goto-char eshell-last-output-start)
                    (re-search-backward eshell-prompt-regexp)
                    (next-line)
                    (line-beginning-position)))
-         (end    eshell-last-output-start)
-         (contents (buffer-substring-no-properties start end)))
+        (end    eshell-last-output-start))
+    (buffer-substring-no-properties start end)))
+
+(defun ha-eshell-ebb-output (insert-location)
+  "Grab output from previous eshell command, inserting it into our buffer.
+Gives the INSERT-LOCATION to `ha-eshell-ebb-switch-to-buffer'."
+  (let ((contents (ha-eshell-last-output)))
     (ha-eshell-ebb-switch-to-buffer insert-location)
     (insert contents)))
 
 (defun eshell/ebb (&rest args)
-  "Run command with output into a buffer, or output of last command.
-Usage: ebb [OPTION] [COMMAND] [FILE ...]
-    -h, --help           show this usage screen
-    -a, --append         add command output to the *eshell-edit* buffer
-    -p, --prepend        add command output to the end of *eshell-edit* buffer
-    -i, --insert         add command output to *eshell-edit* at point"
-  (let* ((options  (eshell-getopts '((:name insert  :short "i" :long "insert")
-                                     (:name append  :short "a" :long "append")
-                                     (:name prepend :short "p" :long "prepend")
-                                     (:name help    :short "h" :long "help"
+  "Insert text content into *eshell-edit* buffer, or if not text is given, the output of last command.
+Usage: ebb [OPTION] [text content]
+    -h, --help    show this usage screen
+    -m, --mode    specify the major-mode for the *eshell-edit* buffer, e.g. json
+    -n, --newline separate the text contents by newlines (this is default)
+    -s, --spaces  separate the text contents by spaces, instead of newlines
+    -b, --begin   add text content to the beginning of the *eshell-edit* buffer
+    -e, --end     add text content to the end of *eshell-edit* buffer
+    -i, --insert  add text content to *eshell-edit* at point"
+  (let* ((options  (eshell-getopts '((:name insert      :short "i" :long "insert")
+                                     (:name append      :short "e" :long "end")
+                                     (:name prepend     :short "b" :long "begin")
+                                     (:name newline     :short "n" :long "newline")
+                                     (:name spaces      :short "s" :long "spaces")
+                                     (:name mode-option :short "m" :long "mode" :parameter string)
+                                     (:name help        :short "h" :long "help"
                                             :help eshell/ebb))
                                    args))
          (location (cond
@@ -331,17 +351,23 @@ Usage: ebb [OPTION] [COMMAND] [FILE ...]
                     ((gethash 'prepend options) :prepend)
                     (t                          :replace)))
          (params   (gethash 'parameters options)))
-    (cond
-     ((seq-empty-p params)         (ha-eshell-ebb-output  location))
-     ((file-exists-p (car params)) (ha-eshell-ebb-files   location params))
-     (t                            (ha-eshell-ebb-command location params))))
 
-  ;; At this point, we are in the `ha-eshell-ebbflow-buffername', and
-  ;; the buffer contains the inserted data, so:
-  (goto-char (point-min))
+    (if (seq-empty-p params)
+        ((ha-eshell-ebb-output location))
+      (ha-eshell-ebb-string location (gethash 'spaces options) params))
+
+    ;; At this point, we are in the `ha-eshell-ebbflow-buffername', and
+    ;; the buffer contains the inserted data. Did we specify a major-mode?
+    (when-let ((mode-option (gethash 'mode-option options)))
+      (if (s-starts-with? "js" mode-option)
+          (js-json-mode)  ; Or should we just go to json-ts-mode?
+        (funcall (intern (concat mode-option "-mode")))))
+
+    ;; Flip on the minor mode-option so we can close the window later on:
+    (ebbflow-mode +1)
+    (goto-char (point-min)))
 
   nil) ; Return `nil' so that it doesn't print anything in `eshell'.
-
 
 ;;; The fun $$ tricks and hacks
 (defvar ha-eshell-output (make-ring 10)
