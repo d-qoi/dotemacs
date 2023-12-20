@@ -62,6 +62,6 @@
      ["Misc"
       ("o" "Occur" isearch-occur)
       ]])
-  (define-key isearch-mode-map (kbd "C-S") 'd-qoi/isearch-transient-menu))
+  (keymap-set isearch-mode-map "M-s M-s" 'd-qoi/isearch-transient-menu))
 
 (provide 'init-editing)
