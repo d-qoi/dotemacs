@@ -39,14 +39,6 @@ variable `project-local-identifier' to be considered a project."
       (setq project-vc-extra-root-markers '()))
   (add-hook 'project-find-functions 'project-local-try-local))
 
-
-(use-package transient
-  :straight t)
-
-(use-package transient-dwim
-  :straight t
-  :after (:all (transient magit)))
-
 (use-package magit
   :straight t
   :after transient

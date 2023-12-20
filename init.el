@@ -64,6 +64,10 @@
 (require 'init-prog-py)
 (require 'init-prog-web)
 
+;; Custom file should be located somewhere in the load path,
+;; probably in site-elisp
+(require 'site-custom nil t)
+
 ;; One of the last things to do.
 (if (file-exists-p custom-file)
     (load custom-file))

@@ -15,6 +15,13 @@
 (use-package s
   :straight t)
 
+(use-package transient
+  :straight t)
+
+(use-package transient-dwim
+  :straight t
+  :after (:all (transient magit)))
+
 (use-package which-key
   :straight t
   :diminish

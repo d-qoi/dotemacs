@@ -36,4 +36,32 @@
 (use-package wgrep
   :straight (:repo "mhayashi1120/Emacs-wgrep"))
 
+(use-package isearch
+  :straight (:type built-in)
+  :after (:all (anzu transient))
+  :config
+  (transient-define-prefix d-qoi/isearch-transient-menu ()
+    "ISearch Assist functions, in Transient Form!"
+    [["Edit String Search"
+      ("e" "Edit the search string (recursive)" isearch-edit-string)
+      ("w" "Pull next word or char word from buffer" isearch-yank-word-or-char)
+      ("s" "Pull next symbol or char from buffer" isearch-yank-symbol-or-char)
+      ("l" "Pull rest of line from buffer" isearch-yank-line)
+      ("y" "Pull string from kill ring" isearch-yank-kill)
+      ("t" "Pull thing at point from buffer" isearch-forward-thing-at-point)
+      ]
+     ["Replace"
+      ("q" "Start 'query-replace'" anzu-isearch-query-replace :if-nil buffer-read-only)
+      ("x" "start 'query-replace-regex'" anzu-isearch-query-replace-regexp :if-nil buffer-read-only)
+      ]]
+    [["Toggle"
+      ("X" "Toggle regexp searching" isearch-toggle-regexp)
+      ("S" "Toggle symbol searching" isearch-toggle-symbol)
+      ("W" "Toggle case fold" isearch-toggle-case-fold)
+      ("L" "Toggle lax whitespace" isearch-toggle-lax-whitespace)]
+     ["Misc"
+      ("o" "Occur" isearch-occur)
+      ]])
+  (define-key isearch-mode-map (kbd "C-S") 'd-qoi/isearch-transient-menu))
+
 (provide 'init-editing)
