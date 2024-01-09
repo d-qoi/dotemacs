@@ -5,7 +5,6 @@
 (defvar rubiks-timer-start-time nil
   "Start time for the timer.")
 
-;;;###autoload
 (define-minor-mode rubiks-timer-mode
   "A Rubik's cube timer for Emacs."
   :lighter " Rubiks[S]"
@@ -13,12 +12,15 @@
             (define-key map (kbd "SPC") 'rubiks-timer-toggle)
             (define-key map (kbd "r") 'rubiks-timer-reset)
             (define-key map (kbd "q") 'rubiks-timer-quit)
-            map)
-  (if rubiks-timer-mode
-      (progn
-        (switch-to-buffer "*Rubik's Timer*")
-        (rubiks-print "Initial scramble: %s" (rubiks-timer-gen-scramble)))
-    (kill-buffer "*Rubik's Timer*")))
+            map))
+
+;;;###autoload
+(defun rubiks-timer ()
+  "A rubik's timer for Emacs."
+  (interactive)
+  (switch-to-buffer "*Rubik's Timer*")
+  (rubiks-timer-mode 1)
+  (rubiks-print "Initial scramble: %s" (rubiks-timer-gen-scramble)))
 
 (defun rubiks-timer-update-lighter (text)
   "Update the rubiks-timer-mode lighter with TEXT."

@@ -38,8 +38,11 @@
 
 (use-package isearch
   :straight (:type built-in)
-  :after (:all (anzu transient))
-  :config
+  :demand
+  :bind
+  (:map isearch-mode-map
+   ("M-s M-s" . d-qoi/isearch-transient-menu))
+  :init
   (transient-define-prefix d-qoi/isearch-transient-menu ()
     "ISearch Assist functions, in Transient Form!"
     [["Edit String Search"
@@ -61,7 +64,6 @@
       ("L" "Toggle lax whitespace" isearch-toggle-lax-whitespace)]
      ["Misc"
       ("o" "Occur" isearch-occur)
-      ]])
-  (keymap-set isearch-mode-map "M-s M-s" 'd-qoi/isearch-transient-menu))
+      ]]))
 
 (provide 'init-editing)

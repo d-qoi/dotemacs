@@ -88,7 +88,7 @@
   (push-mark))
 
 ;; mark
-(global-set-key (kbd "C-z m") 'd-qoi/push-mark)
+(global-set-key (kbd "C-z SPC") 'd-qoi/push-mark)
 
 ;; revert buffer
 (global-set-key (kbd "C-z r") 'revert-buffer)
