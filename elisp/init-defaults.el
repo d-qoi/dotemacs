@@ -61,7 +61,6 @@
 (global-set-key (kbd "C-c C-r") 'recentf-open-files)
 
 ;; binding functions
-(global-set-key (kbd "C-x C-k") 'delete-other-windows)
 (global-set-key (kbd "C-x M-s") 'save-buffers-kill-emacs)
 
 ;; ibuffer buffer list
