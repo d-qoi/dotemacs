@@ -242,5 +242,12 @@
   :after (:all embark consult)
   :hook (embark-collect-mode . consult-preview-at-point-mode))
 
+(use-package devil
+  :straight t
+  :demand t
+  :config
+  (setq devil-lighter " \U0001F608")
+  (setq devil-prompt "\U0001F608 %t")
+  (global-set-key (kbd "C-|") 'global-devil-mode))
 
 (provide 'init-global-packages)
