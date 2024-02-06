@@ -10,6 +10,7 @@
    ("C-x j" . dired-jump-other-window))
   :custom
   (diredp-hide-details-initially-flag nil)
+  (dired-auto-revert-buffer t)
   (dired-dwim-target t))
 
 (use-package dired-async

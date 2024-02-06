@@ -40,6 +40,9 @@
 ;; Minibuffer
 (setq enable-recursive-minibuffers t)
 
+(setq global-auto-revert-non-file-buffers t)
+(global-auto-revert-mode 1)
+
 ;; activate whitespace-mode to view all whitespace characters
 (global-set-key (kbd "C-c w") 'whitespace-mode)
 
