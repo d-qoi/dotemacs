@@ -45,7 +45,6 @@
 
 (use-package python-black
   :straight t
-  :demand t
   :after python
   :hook (python-base-mode . python-black-on-save-mode-enable-dwim))
 

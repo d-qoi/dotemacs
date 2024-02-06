@@ -3,7 +3,7 @@
 (require 'use-package)
 
 (defcustom project-local-identifier ".project"
-  "You can specify a single filename or a list of names."
+  "Specify a single filename or a list of names."
   :type '(choice (string :tag "Single file")
                  (repeat (string :tag "Filename")))
   :group 'project)

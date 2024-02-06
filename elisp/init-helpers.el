@@ -57,4 +57,15 @@
   (let ((position (1+ (seq-position (symbol-value hook) existing-func))))
     (d-qoi/set-element-at-position hook new-func position)))
 
+(defun d-qoi/term-toggle-line-char ()
+  "Switch `term-in-line-mode' and `term-in-char-mode' in `ansi-term'"
+  (interactive)
+  (cond
+   ((term-in-line-mode)
+    (term-char-mode)
+    (hl-line-mode -1))
+   ((term-in-char-mode)
+    (term-line-mode)
+    (hl-line-mode 1))))
+
 (provide 'init-helpers)

@@ -59,6 +59,8 @@
     (add-hook 'c-mode-hook 'eglot-ensure))
 
   ;; Pulled into after-init function so *clang-format* can be set in customise
+  ;; Don't ask why I needed to do this. There's probably an easier way.
+
   ;; pull from melpa if needed
   (use-package clang-format
     :if (and *clang-format* (not *clang-format-elisp-file*))
@@ -80,15 +82,12 @@
 
 (add-hook 'after-init-hook 'd-qoi/init-prog-c-after-init)
 
-;; Colorized compilation
-
+;; Colorized compilation -- Maybe it should be moved to global?
 (defun d-qoi/colorize-compilation-buffer ()
   (when (eq major-mode 'compilation-mode)
     (ansi-color-apply-on-region compilation-filter-start (point-max))))
 
 (add-hook 'compilation-filter-hook 'd-qoi/colorize-compilation-buffer)
-
-;; TODO Pull cpplint into its own file.
 
 (use-package flymake-google-cpplint
   :if (executable-find "cpplint")

@@ -18,29 +18,6 @@
   :config
   (dired-async-mode 1))
 
-(defun d-qoi/term-toggle-line-char ()
-  "Switch `term-in-line-mode' and `term-in-char-mode' in `ansi-term'"
-  (interactive)
-  (cond
-   ((term-in-line-mode)
-    (term-char-mode)
-    (hl-line-mode -1))
-   ((term-in-char-mode)
-    (term-line-mode)
-    (hl-line-mode 1))))
-
-(use-package multi-term
-  :straight t
-  :disabled
-  :commands (multi-term)
-  :bind
-  ((:map term-raw-map
-         ("C->" . multi-term-next)
-         ("C-<" . multi-term-prev)
-         ("C-t" . d-qoi/term-toggle-line-char))
-   (:map term-mode-map
-         ("C-t" . d-qoi/term-toggle-line-char))))
-
 (require 'eshell)
 (use-package eat
   :straight (eat :type git
