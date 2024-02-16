@@ -257,12 +257,27 @@
   :after (:all embark consult)
   :hook (embark-collect-mode . consult-preview-at-point-mode))
 
+(defun d-qoi/devil-find-special-advice (retval)
+  (when retval
+    (which-key--hide-popup))
+  retval)
+
+(defun d-qoi/devil-find-regular-advice (key)
+  (let* ((translated-key (devil--translate key))
+         (parsed-key (ignore-errors (kbd translated-key)))
+         (binding (when parsed-key (key-binding parsed-key))))
+    (if (keymapp binding)
+        (which-key--show-keymap parsed-key binding nil nil t)
+      (which-key--hide-popup))))
+
 (use-package devil
   :straight t
   :demand t
   :config
   (setq devil-lighter " \U0001F608")
   (setq devil-prompt "\U0001F608 %t")
-  (global-set-key (kbd "C-|") 'global-devil-mode))
+  (global-set-key (kbd "C-|") 'global-devil-mode)
+  (advice-add 'devil--find-special-command :filter-return #'d-qoi/devil-find-special-advice)
+  (advice-add 'devil--find-regular-command :after #'d-qoi/devil-find-regular-advice))
 
 (provide 'init-global-packages)
