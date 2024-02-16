@@ -266,7 +266,7 @@
   (let* ((translated-key (devil--translate key))
          (parsed-key (ignore-errors (kbd translated-key)))
          (binding (when parsed-key (key-binding parsed-key))))
-    (if (keymapp binding)
+    (if (and binding (keymapp binding))
         (which-key--show-keymap parsed-key binding nil nil t)
       (which-key--hide-popup))))
 
