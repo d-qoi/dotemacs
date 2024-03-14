@@ -38,10 +38,12 @@
 
 (use-package isearch
   :straight (:type built-in)
+  :after avy
   :demand
   :bind
   (:map isearch-mode-map
-   ("M-s M-s" . d-qoi/isearch-transient-menu))
+        ("M-s M-s" . d-qoi/isearch-transient-menu)
+        ("M-j" . avy-isearch))
   :init
   (transient-define-prefix d-qoi/isearch-transient-menu ()
     "ISearch Assist functions, in Transient Form!"

@@ -257,12 +257,85 @@
   :after (:all embark consult)
   :hook (embark-collect-mode . consult-preview-at-point-mode))
 
+(defun avy-action-kill-line (pt)
+  (save-excursion
+    (goto pt)
+    (kill-whole-line))
+  (select-window
+   (cdr
+    (ring-ref avy-ring 0)))
+  t)
+
+(defun avy-action-copy-line (pt)
+  (save-excursion
+    (goto pt)
+    (cl-destructuring-bind (start . end)
+        (bounds-of-thing-at-point 'line)
+      (copy-region-as-kill start end)))
+  (select-window
+   (cdr
+    (ring-ref avy-ring 0)))
+  t)
+
+(defun avy-action-teleport-line (pt)
+  (avy-action-kill-line pt)
+  (save-excursion (yank))
+  t)
+
+(defun avy-action-mark-to-char (pt)
+  (activate-mark)
+  (goto-char pt))
+
+(defun avy-action-embark (pt)
+  (unwind-protect
+      (save-excursion
+        (goto-char pt)
+        (embark-act))
+    (select-window
+     (cdr (ring-ref avy-ring 0))))
+  t)
+
+(use-package avy
+  :straight (:host github :repo "abo-abo/avy")
+  :demand t
+  :config
+  (setf (alist-get ?k avy-dispatch-alist) 'avy-action-kill-stay
+        (alist-get ?K avy-dispatch-alist) 'avy-action-kill-line
+        (alist-get ?w avy-dispatch-alist) 'avy-action-copy
+        (alist-get ?W avy-dispatch-alist) 'avy-action-copy-line
+        (alist-get ?T avy-dispatch-alist) 'avy-action-teleport-line
+        (alist-get ?  avy-dispatch-alist) 'avy-action-mark-to-char
+        (alist-get ?. avy-dispatch-alist) 'avy-action-embark
+        )
+  :bind
+  (("C-:" . avy-goto-char-timer)))
+
+(use-package activities
+  :straight (:host github :repo "alphapapa/activities.el")
+  :demand t
+  :init
+  (activities-mode)
+  (activities-tabs-mode)
+
+  :bind
+  (("C-x t C-n" . activities-new)
+   ("C-x t C-d" . activities-define)
+   ("C-x t C-a" . activities-resume)
+   ("C-x t C-s" . activities-suspend)
+   ("C-x t C-k" . activities-kill)
+   ("C-x t RET" . activities-switch)
+   ("C-x t C-b" . activities-switch-buffer)
+   ("C-x t g" . activities-revert)
+   ("C-x t l" . activities-list)))
+
 (defun d-qoi/devil-find-special-advice (retval)
+  "Hide which key popup when devil find special is activated"
   (when retval
     (which-key--hide-popup))
   retval)
 
 (defun d-qoi/devil-find-regular-advice (key)
+  "This allows which-key to search devil-mode partial maps."
   (let* ((translated-key (devil--translate key))
          (parsed-key (ignore-errors (kbd translated-key)))
          (binding (when parsed-key (key-binding parsed-key))))

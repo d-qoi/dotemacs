@@ -24,9 +24,6 @@
 
 (add-hook 'project-find-functions 'project-find-go-module)
 
-(defun eglot-format-buffer-on-save ()
-  (add-hook 'before-save-hook 'eglot-format-buffer -10 t))
-
 (add-to-list 'eglot-workspace-configuration
              '(:gopls .
                       ((staticcheck . t)

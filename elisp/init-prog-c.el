@@ -56,7 +56,9 @@
                       "--header-insertion=never"
                       "--header-insertion-decorators=0")))
     (add-hook 'c++-mode-hook 'eglot-ensure)
-    (add-hook 'c-mode-hook 'eglot-ensure))
+    (add-hook 'c-mode-hook 'eglot-ensure)
+    (add-hook 'c++-mode-hook 'eglot-format-buffer-on-save)
+    (add-hook 'c-mode-hook 'eglot-format-buffer-on-save))
 
   ;; Pulled into after-init function so *clang-format* can be set in customise
   ;; Don't ask why I needed to do this. There's probably an easier way.

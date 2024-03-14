@@ -8,6 +8,9 @@
 (use-package eglot
   :straight (:type built-in))
 
+(defun eglot-format-buffer-on-save ()
+  (add-hook 'before-save-hook 'eglot-format-buffer -10 t))
+
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
 (use-package yasnippet
