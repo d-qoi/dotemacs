@@ -84,3 +84,4 @@ ede-projects.el
 # games
 games/
 /.mc-lists.el
+/persist/
