@@ -59,6 +59,7 @@
 (require 'init-prog)
 (require 'init-prog-markup)
 (require 'init-prog-c)
+(require 'init-prog-rust)
 (require 'init-prog-cmake)
 (require 'init-prog-go)
 (require 'init-prog-py)

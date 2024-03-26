@@ -96,17 +96,17 @@
   ;; file names.  This provides a more informative view.
   (setq denote-backlinks-show-context t))
 
-(defun denote--default-directory-is-silo-p ()
-  "Return path to silo if `default-directory' is a silo."
-  (when-let ((dir-locals (dir-locals-find-file default-directory))
-             (local-val (alist-get 'denote-directory dir-local-variables-alist)))
-    (cond
-     ((and (stringp local-val)
-           (file-directory-p local-val))
-      local-val)
-      ((listp dir-locals)
-       (car dir-locals))
-      ((stringp dir-locals)
-       dir-locals))))
+;; (defun denote--default-directory-is-silo-p ()
+;;   "Return path to silo if `default-directory' is a silo."
+;;   (when-let ((dir-locals (dir-locals-find-file default-directory))
+;;              (local-val (alist-get 'denote-directory dir-local-variables-alist)))
+;;     (cond
+;;      ((and (stringp local-val)
+;;            (file-directory-p local-val))
+;;       local-val)
+;;       ((listp dir-locals)
+;;        (car dir-locals))
+;;       ((stringp dir-locals)
+;;        dir-locals))))
 
 (provide 'init-org)
