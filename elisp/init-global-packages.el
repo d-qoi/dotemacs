@@ -259,7 +259,7 @@
 
 (defun avy-action-kill-line (pt)
   (save-excursion
-    (goto pt)
+    (goto-char pt)
     (kill-whole-line))
   (select-window
    (cdr
@@ -268,7 +268,7 @@
 
 (defun avy-action-copy-line (pt)
   (save-excursion
-    (goto pt)
+    (goto-char pt)
     (cl-destructuring-bind (start . end)
         (bounds-of-thing-at-point 'line)
       (copy-region-as-kill start end)))

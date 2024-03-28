@@ -101,5 +101,11 @@
 (require 'tab-bar)
 (keymap-set tab-prefix-map "TAB" #'tab-next)
 
+(require 'proced)
+(add-hook 'proced-mode-hook (lambda () (proced-toggle-auto-update)))
+
+(require 'timeclock)
+(setq timeclock-file "~/timeclock.log")
+
 (provide 'init-defaults)
 ;;; setup-general.el ends here
