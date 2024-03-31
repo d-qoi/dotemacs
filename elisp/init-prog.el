@@ -96,4 +96,10 @@
   :config
   (global-treesit-auto-mode))
 
+(use-package ts-fold
+  :disabled ; disabled till they can get it working with the built in treesit mode
+  :straight (ts-fold :type git :host github :repo "emacs-tree-sitter/ts-fold")
+  :config
+  (global-ts-fold-indicators-mode))
+
 (provide 'init-prog)
