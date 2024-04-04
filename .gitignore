@@ -85,3 +85,4 @@ ede-projects.el
 games/
 /.mc-lists.el
 /persist/
+*.sqlite

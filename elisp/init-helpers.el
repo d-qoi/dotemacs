@@ -2,6 +2,27 @@
 
 (require 'find-lisp)
 (require 'autoload)
+(require 'cl)
+
+(defun d-qoi/remove-from-list ()
+  "Remove an element by index from any list. It may faulter on duplicates."
+  (interactive)
+  (let ((list-of-lists))
+    (mapatoms (lambda (sym)
+                (if (and (boundp sym) (symbol-value sym) (listp (symbol-value sym)))
+                    (push sym list-of-lists))))
+    (when-let*
+        ((list-of-lists)
+         (chosen-list-str (completing-read "Choose a list: " list-of-lists nil t))
+         (chosen-list (intern-soft chosen-list-str))
+         (list-value (symbol-value chosen-list))
+         (selection-map (cl-mapcar (lambda (val index) (cons (format "%d: %s" index (prin1-to-string val)) index))
+                                   list-value
+                                   (number-sequence 0 (length list-value))))
+         (chosen-index-str (completing-read "Choose the item to remove: " selection-map nil t))
+         (chosen-index (cdr (assoc chosen-index-str selection-map))))
+      (set chosen-list (delete (nth chosen-index list-value) list-value))
+      (message "Removed %s from %s" chosen-index-str chosen-list))))
 
 (defun insert-file-or-directory-path ()
   "Insert the path of a file or directory at point.

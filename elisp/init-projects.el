@@ -50,5 +50,10 @@ variable `project-local-identifier' to be considered a project."
   ;;  'magit-insert-ignored-files
   ;;  'magit-insert-untracked-files))
 
+(use-package forge
+  :straight t
+  :after magit)
+
+
 
 (provide 'init-projects)

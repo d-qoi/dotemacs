@@ -27,23 +27,22 @@
   (add-hook 'rustic-mode-hook (lambda () (flymake-mode -1))))
 
 (when (and (treesit-available-p) (treesit-language-available-p 'rust))
-  (define-derived-mode rustic-ts-mode rust-ts-mode "Rustic"
+  (define-derived-mode rustic-mode rust-ts-mode "Rustic"
     "Major mode for Rust code, based on rust-ts-mode
 
   \\{rustic-mode-map}"
     :group 'rustic
 
     (when (bound-and-true-p rustic-cargo-auto-add-missing-dependencies)
-      (add-hook 'lsp-after-diagnostics-hook 'rustic-cargo-add-missing-dependencies-hook nil t)))
+      (add-hook 'lsp-after-diagnostics-hook 'rustic-cargo-add-missing-dependencies-hook nil t))))
 
-  (add-to-list 'treesit-auto-recipe-list
-               (make-treesit-auto-recipe
-                :lang 'rust
-                :ts-mode 'rustic-ts-mode
-                :remap 'rustic-mode
-                :url "https://github.com/tree-sitter/tree-sitter-rust"
-                :ext "\\.rs\\'"))
-
-  (add-hook 'rust-ts-mode-hook (lambda () (run-hooks 'rustic-mode-hook))))
+  ;; (add-to-list 'treesit-auto-recipe-list
+  ;;              (make-treesit-auto-recipe
+  ;;               :lang 'rust
+  ;;               :ts-mode 'rustic-mode
+  ;;               :remap 'rust-mode
+  ;;               :url "https://github.com/tree-sitter/tree-sitter-rust"
+  ;;               :ext "\\.rs\\'"))
+  ;; (add-hook 'rust-ts-mode-hook (lambda () (run-hooks 'rustic-mode-hook)))
 
 (provide 'init-prog-rust)

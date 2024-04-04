@@ -19,8 +19,11 @@
   (emmet-move-cursor-between-quotes t)
   :config
   (add-to-list 'emmet-jsx-major-modes 'js-ts-mode)
+  (add-to-list 'emmet-jsx-major-modes 'js-mode)
   (add-to-list 'emmet-jsx-major-modes 'typescript-ts-mode)
-  (add-to-list 'emmet-jsx-major-modes 'tsx-ts-mode))
+  (add-to-list 'emmet-jsx-major-modes 'typescript-mode)
+  (add-to-list 'emmet-jsx-major-modes 'tsx-ts-mode)
+  (add-to-list 'emmet-jsx-major-modes 'tsx-mode))
 
 (use-package web-mode
   :straight t
@@ -34,10 +37,11 @@
             (treesit-language-available-p 'javascript))
     (add-hook 'typescript-ts-mode-hook (lambda () (run-hooks 'typescript-mode-hook)))
     (add-hook 'tsx-ts-mode-hook (lambda () (run-hooks 'tsx-mode-hook)))
-    (add-hook 'js-ts-mode-hook (lambda () (run-hooks 'js-mode-hook)))))
+    (add-hook 'js-ts-mode-hook (lambda () (run-hooks 'js-mode-hook)))
+    (add-to-list 'auto-mode-alist '("\\.jsx\\'" . tsx-ts-mode))))
 
 (when *typescript-language-server*
-  (add-hook 'js-mode-hook 'eglot-ensure)
+  (add-hook 'js-base-mode-hook 'eglot-ensure)
   (add-hook 'typescript-mode-hook 'eglot-ensure)
   (add-hook 'tsx-mode-hook 'eglot-ensure))
 
