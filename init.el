@@ -64,6 +64,7 @@
 (require 'init-prog-go)
 (require 'init-prog-py)
 (require 'init-prog-web)
+(require 'init-prog-just)
 
 ;; Custom file should be located somewhere in the load path,
 ;; probably in site-elisp

@@ -21,6 +21,11 @@
   "Do we have Black and Black-macchiato? The executable of black-macchiato"
   :group 'python)
 
+(defcustom *ipython*
+  (executable-find "ipython")
+  "Do we have ipython?"
+  :group 'python)
+
 (use-package python
   :straight (:type built-in)
   :init
@@ -28,7 +33,12 @@
    `((python-mode python-ts-mode) .
      ,(eglot-alternatives
        '(("pyright-langserver" "--stdio") "pylsp" "pyls" "jedi-language-server")))
-   eglot-server-programs))
+   eglot-server-programs)
+  :config
+  (if *ipython*
+      (setq python-shell-interpreter "ipython"
+            python-shell-interpreter-args "-i --simple-prompt --InteractiveShell.display_page=True")))
+
 
 (use-package pyvenv
   :straight t
@@ -45,8 +55,20 @@
 
 (use-package python-black
   :straight t
+  :if *python-black*
   :after python
   :hook (python-base-mode . python-black-on-save-mode-enable-dwim))
+
+(use-package ipython-shell-send
+  :straight (ipython-shell-send :repo "jackkamm/ipython-shell-send-el")
+  :after python
+  :if *ipython*
+  :bind (:map python-base-mode-map
+              ([remap python-shell-send-defun] . ipython-shell-send-defun)
+              ([remap python-shell-send-buffer] . ipython-shell-send-buffer)
+              ([remap python-shell-send-string] . ipython-shell-send-string)
+              ([remap python-shell-send-region] . ipython-shell-send-region)
+              ([remap python-shell-send-file] . ipython-shell-send-file)))
 
 (defun d-qoi/init-prog-py-after-init ()
   (when *python-lsps-available*

@@ -6,7 +6,9 @@
   (defun treesit-available-p () nil))
 
 (use-package eglot
-  :straight (:type built-in))
+  :straight (:type built-in)
+  :custom
+  (eglot-report-progress nil))
 
 (defun eglot-format-buffer-on-save ()
   (add-hook 'before-save-hook 'eglot-format-buffer -10 t))
@@ -102,5 +104,11 @@
                      :fork t))
 ;; :config
 ;;   (global-ts-fold-indicators-mode) )
+
+(use-package move-text
+  :straight t
+  :bind (:map prog-mode-map
+              ("M-<down>" . move-text-down)
+              ("M-<up>" . move-text-up)))
 
 (provide 'init-prog)

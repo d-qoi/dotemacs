@@ -86,3 +86,5 @@ games/
 /.mc-lists.el
 /persist/
 *.sqlite
+/image-dired/
+/url/
