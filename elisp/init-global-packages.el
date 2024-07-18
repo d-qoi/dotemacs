@@ -310,6 +310,13 @@
   :bind
   (("C-:" . avy-goto-char-timer)))
 
+(use-package ace-window
+  :straight (:host github :repo "abo-abo/ace-window")
+  :demand t
+  :bind ("M-o" . ace-window)
+  :custom
+  (aw-dispatch-always t))
+
 (use-package activities
   :straight (:host github :repo "alphapapa/activities.el")
   :demand t

@@ -54,6 +54,10 @@ variable `project-local-identifier' to be considered a project."
   :straight t
   :after magit)
 
+(use-package git-timemachine
+  :straight t
+  :after magit)
+
 
 
 (provide 'init-projects)

@@ -68,4 +68,14 @@
       ("o" "Occur" isearch-occur)
       ]]))
 
+
+(use-package crux
+  :straight t
+  :bind
+  (([remap move-beginning-of-line] . crux-move-beginning-of-line)
+   ([remap kill-whole-line] . crux-kill-whole-line)
+   ("C-c o" . crux-open-with)
+   ("s-r" . crux-recentf-find-file)
+   ("C-<backspace>" . crux-kill-line-backwards)))
+
 (provide 'init-editing)
