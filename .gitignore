@@ -88,3 +88,4 @@ games/
 *.sqlite
 /image-dired/
 /url/
+/request/

@@ -201,7 +201,37 @@
   (when (locate-library "denote")
     (consult-notes-denote-mode))
   ;; search only for text files in denote dir
-  (setq consult-notes-denote-files-function (function denote-directory-text-only-files)))
+  (setq consult-notes-denote-files-function (lambda () (denote-directory-files nil nil t))))
+
+(use-package consult-omni
+	:straight (consult-omni :type git :host github :repo "armindarvish/consult-omni" :files (:defaults "sources/*.el"))
+    :after consult
+    :custom
+    (consult-omni-embark-default-term #'eat)
+    :config
+    (require 'consult-omni-sources)
+    (let ((sources '(consult-omni-apps
+                     consult-omni-buffer
+                     consult-omni-calc
+                     consult-omni-consult-notes
+                     consult-omni-dict
+                     consult-omni-duckduckgo
+                     consult-omni-google-autosuggest
+                     consult-omni-google
+                     consult-omni-line-multi
+                     consult-omni-man
+                     consult-omni-stackoverflow
+                     consult-omni-wikipedia)))
+      (when (executable-find "rg")
+        (setq sources (append sources '(consult-omni-ripgrep-all consult-omni-ripgrep))))
+      (when (executable-find "locate")
+        (setq sources (append sources '(consult-omni-locate))))
+      (setq consult-omni-sources-modules-to-load sources)
+      (consult-omni-sources-load-modules))
+    (require 'consult-omni-embark)
+
+    (setq consult-omni-multi-sources )
+
 
 (use-package orderless
   :straight t
