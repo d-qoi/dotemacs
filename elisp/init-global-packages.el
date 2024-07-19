@@ -206,6 +206,7 @@
 (use-package consult-omni
 	:straight (consult-omni :type git :host github :repo "armindarvish/consult-omni" :files (:defaults "sources/*.el"))
     :after consult
+    :bind (("M-s C-o" . consult-omni-multi))
     :custom
     (consult-omni-embark-default-term #'eat)
     :config
@@ -230,7 +231,15 @@
       (consult-omni-sources-load-modules))
     (require 'consult-omni-embark)
 
-    (setq consult-omni-multi-sources )
+    (setq consult-omni-multi-sources
+          '("Apps"
+            "calc"
+            "man"
+            "buffers text search"
+            "Dictionary"
+            "Wikipedia"
+            "Consult Notes Denote"
+            "DuckDuckGo API")))
 
 
 (use-package orderless
