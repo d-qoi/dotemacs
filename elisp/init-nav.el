@@ -31,7 +31,10 @@
   :bind
   ("C-$" . eat)
   :custom
-  ((eat-kill-buffer-on-exit t)))
+  ((eat-kill-buffer-on-exit t))
+  :config
+  (add-to-list 'tramp-remote-process-environment "TERM=xterm-256color")
+  (add-to-list 'tramp-remote-process-environment "TERMINFO=''"))
 
 (use-package docker
   :straight t)

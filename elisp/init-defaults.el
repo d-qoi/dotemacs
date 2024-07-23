@@ -20,11 +20,6 @@
 ;; tmm menues
 (setq tty-menu-open-use-tmm t)
 
-;; show unncessary whitespace that can mess up your diff
-(add-hook 'prog-mode-hook
-          (lambda () (interactive)
-            (setq show-trailing-whitespace 1)))
-
 ;; use space to indent by default
 (setq-default indent-tabs-mode nil)
 

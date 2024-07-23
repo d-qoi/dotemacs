@@ -2,6 +2,11 @@
 
 (require 'use-package)
 
+;; show unncessary whitespace that can mess up your diff
+(add-hook 'prog-mode-hook
+          (lambda () (interactive)
+            (setq show-trailing-whitespace 1)))
+
 (unless (require 'treesit nil t)
   (defun treesit-available-p () nil))
 

@@ -29,6 +29,7 @@
     (with-temp-file *org-agenda-file-listing*
 	  (insert *org-agenda-file-default* "\n")))
   :custom
+  (org-babel-python-command "python3")
   (org-return-follows-link t)
   (org-agenda-files *org-agenda-file-listing*)
   (org-capture-templates
@@ -38,7 +39,11 @@
           :empty-lines 1)
           ("t" "Todo" plain
           (file *org-agenda-file-default*)
-          "* TODO %?\n"))))
+          "* TODO %?\n")))
+  :config
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((python . t))))
 
 (use-package org-novelist
   :straight (:host github :repo "sympodius/org-novelist")
@@ -56,6 +61,7 @@
 
 (use-package powerthesaurus
   :straight t
+  :disabled
   :bind
   (:map text-mode-map
         ("C-c p" . powerthesaurus-lookup-dwim)))

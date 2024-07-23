@@ -223,8 +223,9 @@
                      consult-omni-man
                      consult-omni-stackoverflow
                      consult-omni-wikipedia)))
-      (when (executable-find "rg")
-        (setq sources (append sources '(consult-omni-ripgrep-all consult-omni-ripgrep))))
+      (if (executable-find "rg")
+          (setq sources (append sources '(consult-omni-ripgrep-all consult-omni-ripgrep)))
+        (setq sources (append sources '(consult-omni-grep))))
       (when (executable-find "locate")
         (setq sources (append sources '(consult-omni-locate))))
       (setq consult-omni-sources-modules-to-load sources)
