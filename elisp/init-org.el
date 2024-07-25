@@ -29,6 +29,7 @@
     (with-temp-file *org-agenda-file-listing*
 	  (insert *org-agenda-file-default* "\n")))
   :custom
+  (org-log-done t)
   (org-babel-python-command "python3")
   (org-return-follows-link t)
   (org-agenda-files *org-agenda-file-listing*)

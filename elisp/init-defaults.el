@@ -97,7 +97,7 @@
 (keymap-set tab-prefix-map "TAB" #'tab-next)
 
 (require 'proced)
-(add-hook 'proced-mode-hook (lambda () (proced-toggle-auto-update)))
+(add-hook 'proced-mode-hook (lambda () (proced-toggle-auto-update 1)))
 
 (require 'timeclock)
 (setq timeclock-file "~/timeclock.log")
