@@ -2,11 +2,11 @@
 
 (require 'use-package)
 
-(defcustom *org-agenda-file-listing* "~/.org_agenda_files"
+(defcustom *org-agenda-file-listing* (list "~/tasks.org")
   "The file list default for org-agenda-files,
    creates it if not created,
    propogates it with org-agenda-file-default"
-  :type '(file)
+  :type '(repeat file)
   :group 'org-agenda)
 (defcustom *org-agenda-file-default* "~/todo.org"
   "Default initial file for org-mode"
@@ -24,15 +24,16 @@
   :init
   (unless (file-exists-p *org-agenda-file-default*)
     (make-empty-file *org-agenda-file-default*))
-  (unless (file-exists-p *org-agenda-file-listing*)
-    (make-empty-file *org-agenda-file-listing*)
-    (with-temp-file *org-agenda-file-listing*
-	  (insert *org-agenda-file-default* "\n")))
+  (dolist (*org-agenda-file*  *org-agenda-file-listing*)
+    (unless (file-exists-p *org-agenda-file*)
+      (make-empty-file *org-agenda-file*)
+      (with-temp-file *org-agenda-file*
+	    (insert *org-agenda-file-default* "\n"))))
+  (setq org-agenda-files *org-agenda-file-listing*)
   :custom
   (org-log-done t)
   (org-babel-python-command "python3")
   (org-return-follows-link t)
-  (org-agenda-files *org-agenda-file-listing*)
   (org-capture-templates
         '(("s" "Slipbox" plain
           (file "~/org/slipbox.org")
