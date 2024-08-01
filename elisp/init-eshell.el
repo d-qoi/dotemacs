@@ -185,12 +185,20 @@ Call FUN2 on all the rest of the elements in ARGS."
   "Essentially an alias to the `view-file' function."
   (eshell-fn-on-files 'view-file 'view-file-other-window files))
 
+(defun eshell/set (&rest args)
+  "Create a buffer local variable. Alternative for setq"
+  (dolist (arg-pair (seq-partition args 2))
+    (seq-let (var val) arg-pair
+      (set (make-local-variable (intern var)) val))))
+
+
 ;;; Ha, imagine calling these...
 (defalias 'eshell/emacs 'eshell/e)
 (defalias 'eshell/vi 'eshell/e)
 (defalias 'eshell/vim 'eshell/e)
 (defalias 'eshell/more 'eshell/less)
 (defalias 'eshell/view 'eshell/less)
+(defalias 'eshell/export 'eshell/set)
 
 
 ;;; Ebb and Flow
@@ -353,7 +361,7 @@ Usage: ebb [OPTION] [text content]
          (params   (gethash 'parameters options)))
 
     (if (seq-empty-p params)
-        ((ha-eshell-ebb-output location))
+        (ha-eshell-ebb-output location)
       (ha-eshell-ebb-string location (gethash 'spaces options) params))
 
     ;; At this point, we are in the `ha-eshell-ebbflow-buffername', and
