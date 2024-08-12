@@ -198,7 +198,6 @@ Call FUN2 on all the rest of the elements in ARGS."
 (defalias 'eshell/vim 'eshell/e)
 (defalias 'eshell/more 'eshell/less)
 (defalias 'eshell/view 'eshell/less)
-(defalias 'eshell/export 'eshell/set)
 
 
 ;;; Ebb and Flow

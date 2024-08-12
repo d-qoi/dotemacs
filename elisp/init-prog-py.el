@@ -39,7 +39,7 @@
       (setq python-shell-interpreter "ipython"
             python-shell-interpreter-args "-i --simple-prompt --InteractiveShell.display_page=True")))
 
-
+;; TODO: Switch this to emacs-pet?
 (use-package pyvenv
   :straight t
   :after python
