@@ -83,9 +83,13 @@ ede-projects.el
 
 # games
 games/
+
+# Other random things that I should ignore with no littering
 /.mc-lists.el
 /persist/
 *.sqlite
 /image-dired/
 /url/
 /request/
+/chatgpt/
+/.chatgpt-shell.el
