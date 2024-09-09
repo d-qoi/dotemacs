@@ -102,5 +102,11 @@
 (require 'timeclock)
 (setq timeclock-file "~/timeclock.log")
 
+(setq dired-listing-switches "-alhF")
+
+;; and a prompt to save all unsaved customizations
+(add-hook 'kill-emacs-query-functions
+	  'custom-prompt-customize-unsaved-options)
+
 (provide 'init-defaults)
 ;;; setup-general.el ends here

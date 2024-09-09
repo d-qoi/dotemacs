@@ -50,8 +50,8 @@
 ;; Require All the things
 (require 'init-defaults)
 (require 'init-global-packages)
-(require 'init-eshell)
 (require 'init-nav)
+(require 'init-eshell)
 (require 'init-org)
 (require 'init-projects)
 (require 'init-editing)
@@ -74,10 +74,4 @@
 (if (file-exists-p custom-file)
     (load custom-file))
 
-;; and a prompt to save all unsaved customizations
-(add-hook 'kill-emacs-query-functions
-	  'custom-prompt-customize-unsaved-options)
-(put 'narrow-to-region 'disabled nil)
-(put 'dired-find-alternate-file 'disabled nil)
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
+(require 'post-init)
