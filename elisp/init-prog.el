@@ -103,12 +103,29 @@
   :config
   (global-treesit-auto-mode))
 
-(use-package ts-fold
-  :disabled
-  :straight (ts-fold :type git :host github :repo "d-qoi/ts-fold"
-                     :fork t))
-;; :config
-;;   (global-ts-fold-indicators-mode) )
+(use-package treesit-fold
+  :if (treesit-available-p)
+  :straight (treesit-fold :type git :host github :repo "emacs-tree-sitter/treesit-fold")
+  :bind (:map treesit-fold-mode-map
+        ("<tab>" . d-qoi/treesit-toggle-fold-or-tab))
+  :init
+  (defun d-qoi/treesit-toggle-fold-or-tab ()
+    "either call `treesit-toggle-fold` or `indent-for-tab-command`"
+    (interactive)
+    (if (and (bolp)
+             (not current-prefix-arg)
+             (not (use-region-p))
+             (treesit-fold-ready-p))
+        (treesit-fold-toggle)
+      (indent-for-tab-command)))
+  :config
+  (global-treesit-fold-mode))
+
+(use-package treesit-fold-indicators
+  :after treesit-fold
+  :straight (treesit-fold-indicators :type git :host github :repo "emacs-tree-sitter/treesit-fold")
+  :config
+  (global-treesit-fold-indicators-mode))
 
 (use-package move-text
   :straight t
