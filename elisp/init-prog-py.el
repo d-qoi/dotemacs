@@ -40,10 +40,15 @@
             python-shell-interpreter-args "-i --simple-prompt --InteractiveShell.display_page=True")))
 
 ;; TODO: Switch this to emacs-pet?
-(use-package pyvenv
+;; (use-package pyvenv
+;;   :straight t
+;;   :after python
+;;   :hook (python-base-mode . pyvenv-mode))
+
+(use-package pet
   :straight t
-  :after python
-  :hook (python-base-mode . pyvenv-mode))
+  :config
+  (add-hook 'python-base-mode-hook 'pet-mode -10))
 
 (defun d-qoi/set-pyvenv-to-dirlocal ()
   (interactive)
