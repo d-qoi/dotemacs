@@ -74,4 +74,8 @@
 (if (file-exists-p custom-file)
     (load custom-file))
 
-(require 'post-init)
+(put 'narrow-to-region 'disabled nil)
+(put 'dired-find-alternate-file 'disabled nil)
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(put 'set-goal-column 'disabled nil)
