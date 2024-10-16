@@ -66,6 +66,9 @@
 (require 'init-prog-web)
 (require 'init-prog-just)
 
+;; Other things
+(require 'init-ai)
+
 ;; Custom file should be located somewhere in the load path,
 ;; probably in site-elisp
 (require 'site-custom nil t)

@@ -91,5 +91,6 @@ games/
 /image-dired/
 /url/
 /request/
+/claude/
 /chatgpt/
 /.chatgpt-shell.el
