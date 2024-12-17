@@ -65,6 +65,7 @@
   :hook (python-base-mode . python-black-on-save-mode-enable-dwim))
 
 (use-package ipython-shell-send
+  :disabled
   :straight (ipython-shell-send :repo "jackkamm/ipython-shell-send-el")
   :after python
   :if *ipython*
