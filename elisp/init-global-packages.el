@@ -400,4 +400,9 @@
   (advice-add 'devil--find-special-command :filter-return #'d-qoi/devil-find-special-advice)
   (advice-add 'devil--find-regular-command :after #'d-qoi/devil-find-regular-advice))
 
+(use-package rg
+  :straight t
+  :bind
+  (("C-c s" . rg-menu)))
+
 (provide 'init-global-packages)

@@ -23,7 +23,16 @@
          ("M-z u n" . mc/unmark-next-like-this)
          ("M-z u p" . mc/unmark=previous-like-this)))
 
+(use-package visual-replace
+  :straight t
+  :diminish
+  :config
+  (define-key query-replace-map "p" 'backup)
+  (define-key query-replace-map "P" 'backup)
+  (visual-replace-global-mode 1))
+
 (use-package anzu
+  :disabled
   :straight t
   :diminish
   :bind
@@ -56,8 +65,9 @@
       ("t" "Pull thing at point from buffer" isearch-forward-thing-at-point)
       ]
      ["Replace"
-      ("q" "Start 'query-replace'" anzu-isearch-query-replace :if-nil buffer-read-only)
-      ("x" "start 'query-replace-regex'" anzu-isearch-query-replace-regexp :if-nil buffer-read-only)
+      ("r" "Start visual-replace'" visual-replace-from-isearch :if-nil buffer-read-only)
+      ;("q" "Start 'query-replace'" anzu-isearch-query-replace :if-nil buffer-read-only)
+      ;("x" "start 'query-replace-regex'" anzu-isearch-query-replace-regexp :if-nil buffer-read-only)
       ]]
     [["Toggle"
       ("X" "Toggle regexp searching" isearch-toggle-regexp)

@@ -1,11 +1,11 @@
 ;; -*- lexical-binding: t -*-
 
 (use-package shell-maker
-  :straight (:host github :repo "xenodium/chatgpt-shell" :files ("shell-maker.el")))
+  :straight (:host github :repo "xenodium/shell-maker"))
 
 (use-package chatgpt-shell
   :requires shell-maker
-  :straight (:host github :repo "xenodium/chatgpt-shell" :files ("chatgpt-shell.el"))
+  :straight (:host github :repo "xenodium/chatgpt-shell")
   :bind (:map chatgpt-shell-mode-map
          ("C-x C-r" . chatgpt-shell-restore-session-from-transcript))
   :config
@@ -14,6 +14,7 @@
 
 
 (use-package claude-shell
+  :requires shell-maker
   :straight (claude-shell :type git :host github :repo "arminfriedl/claude-shell")
   :custom
   (claude-shell-streaming t)

@@ -68,6 +68,37 @@
   (:map text-mode-map
         ("C-c p" . powerthesaurus-lookup-dwim)))
 
+(defun d-qoi/howm-follow-link ()
+  (when (org-in-regexp (rx (group (or "<<<" ">>>"))
+                           (+ space)
+                           (group (+ (or alnum space)))
+                           eol))
+    (let ((prefix (match-string 1))
+          (search (match-string 2)))
+      (cond 
+       ((string= prefix ">>>")
+        (message "GOTO: %s" search)
+        (rg search "org" denote-directory))
+       ((string= prefix "<<<")
+        (message "COME FROM: %s" search)))
+      t)))
+
+(defun d-qoi/howm-font-lock (limit)
+  (while (re-search-forward (rx (group (or "<<<" ">>>"))
+                                (+ space)
+                                (group (+ (or alnum space)))
+                                eol)
+                            limit t)
+    (let ((start (match-beginning 0))
+          (end (match-end 0)))
+      (add-text-properties start (- end 1)
+                           (list 'mouse-face 'highlight
+                                 'keymap org-mouse-map
+                                 'help-echo "HOWM Style Link"
+                                 'org-linked-text t))
+      (add-face-text-property start end 'org-link))
+    t))
+
 (use-package denote
   :straight t
   :after org
@@ -102,19 +133,10 @@
 
   ;; By default, we do not show the context of links.  We just display
   ;; file names.  This provides a more informative view.
-  (setq denote-backlinks-show-context t))
+  (setq denote-backlinks-show-context t)
 
-;; (defun denote--default-directory-is-silo-p ()
-;;   "Return path to silo if `default-directory' is a silo."
-;;   (when-let ((dir-locals (dir-locals-find-file default-directory))
-;;              (local-val (alist-get 'denote-directory dir-local-variables-alist)))
-;;     (cond
-;;      ((and (stringp local-val)
-;;            (file-directory-p local-val))
-;;       local-val)
-;;       ((listp dir-locals)
-;;        (car dir-locals))
-;;       ((stringp dir-locals)
-;;        dir-locals))))
+  (add-to-list 'org-open-at-point-functions 'd-qoi/howm-follow-link)
+
+  (font-lock-add-keywords 'org-mode '((d-qoi/howm-font-lock))))
 
 (provide 'init-org)

@@ -6,7 +6,7 @@ After=network.target
 [Service]
 Type=forking
 ExecStart=/usr/local/bin/emacs --daemon
-ExecStop=/usr/local/bin/emacs --eval '(kill-emacs)'
+ExecStop=/usr/local/bin/emacsclient --eval '(kill-emacs)'
 Restart=always
 RestartSec=10
 
