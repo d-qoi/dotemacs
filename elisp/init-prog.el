@@ -15,6 +15,18 @@
   :custom
   (eglot-report-progress nil))
 
+(defvar d-qoi/disable-eglot-for-prject nil
+  "If set, eglot ensure will not run for new files.
+  This is designed to be set in dir-locals.")
+
+(advice-add 'eglot-ensure :before-until
+            (lambda (&rest args)
+              d-qoi/disable-eglot-for-prject))
+
+(advice-add 'eglot-format :before-until
+            (lambda (&rest args)
+              d-qoi/disable-eglot-for-prject))
+
 (defun eglot-format-buffer-on-save ()
   (add-hook 'before-save-hook 'eglot-format-buffer -10 t))
 

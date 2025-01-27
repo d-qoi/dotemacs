@@ -19,6 +19,11 @@
   "Where is the elisp file for clang-format?"
   :group 'c)
 
+(defcustom *ctags*
+  (executable-find "ctags")
+  "Do we have Universal Ctags?"
+  :group 'c)
+
 (setq c-basic-offset 4
       c-default-style '((java-mode . "java")
                         (awk-mode . "awk")
@@ -95,5 +100,11 @@
   :if (executable-find "cpplint")
   :straight (:host github :repo "d-qoi/flymake-google-cpplint")
   :hook (eglot-managed-mode . cpplint-hook-flymake-diag-function))
+
+(use-package citre
+  :if *ctags*
+  :straight (:host github :repo "universal-ctags/citre")
+  :config
+  (require 'citre-config))
 
 (provide 'init-prog-c)

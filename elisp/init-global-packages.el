@@ -60,8 +60,8 @@
           (execute-extended-command flat)
           (describe-symbol (vertico-sort-function . vertico-sort-alpha))))
   (setq vertico-multiform-categories
-        '((file . (buffer indexed))
-          (imenu . (:not indexed mouse))
+        '((imenu . (:not indexed mouse))
+          (consult-grep buffer)
           (describe-symbol (vertico-sort-function . vertico-sort-alpha))))
   :config
   (vertico-mode 1)
