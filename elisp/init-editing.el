@@ -24,7 +24,7 @@
          ("M-z u p" . mc/unmark=previous-like-this)))
 
 (use-package visual-replace
-  :straight t
+  :straight (:host github :repo "szermatt/visual-replace")
   :diminish
   :config
   (define-key query-replace-map "p" 'backup)
