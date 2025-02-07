@@ -101,9 +101,34 @@
   :straight (:host github :repo "d-qoi/flymake-google-cpplint")
   :hook (eglot-managed-mode . cpplint-hook-flymake-diag-function))
 
+(defun d-qoi/citre-peek-increase-context ()
+  "Increase citre-peek-file-content by 1 and rerender the node"
+  (interactive)
+  (setq citre-peek-file-content-height
+        (1+ citre-peek-file-content-height))
+  (message "Citre Peek Content Height: %d" citre-peek-file-content-height)
+  (citre-peek--line-forward 0))
+
+(defun d-qoi/citre-peek-decrease-context ()
+  "Increase citre-peek-file-content by 1 and rerender the node"
+  (interactive)
+  (setq citre-peek-file-content-height
+        (1- citre-peek-file-content-height))
+  (message "Citre Peek Content Height: %d" citre-peek-file-content-height)
+  (citre-peek--line-forward 0))
+
 (use-package citre
   :if *ctags*
   :straight (:host github :repo "universal-ctags/citre")
+  :bind (:map citre-mode-map
+         ("C-c c j" . citre-jump)
+         ("C-c c J" . citre-jump-back)
+         ("C-c c p" . citre-peek)
+         ("C-c c P" . citre-ace-peek)
+         ("C-c c U" . citre-update-this-tags-file)
+         :map citre-peek-keymap
+         ("M-+" . d-qoi/citre-peek-increase-context)
+         ("M-_" . d-qoi/citre-peek-decrease-context))
   :config
   (require 'citre-config))
 

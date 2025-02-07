@@ -15,17 +15,30 @@
   :custom
   (eglot-report-progress nil))
 
-(defvar d-qoi/disable-eglot-for-prject nil
-  "If set, eglot ensure will not run for new files.
-  This is designed to be set in dir-locals.")
+(defcustom d-qoi/eglot-disabled-projects nil
+  "List of project paths where eglot should be disabled"
+  :type '(repeat string)
+  :group 'eglot)
 
-(advice-add 'eglot-ensure :before-until
-            (lambda (&rest args)
-              d-qoi/disable-eglot-for-prject))
+(defun d-qoi/disable-eglot-advice (&rest _)
+  (when-let ((project (project-current)))
+    (member (project-root project) d-qoi/eglot-disabled-projects)))
 
-(advice-add 'eglot-format :before-until
-            (lambda (&rest args)
-              d-qoi/disable-eglot-for-prject))
+(defun d-qoi/toggle-eglot-for-project ()
+  (interactive)
+  (when-let* ((project (project-current))
+              (root (project-root project)))
+    (if (member root d-qoi/eglot-disabled-projects)
+        (progn
+          (setq d-qoi/eglot-disabled-projects
+                (delete root d-qoi/eglot-disabled-projects))
+          (message "Eglot enabled for %s" root))
+      (push root d-qoi/eglot-disabled-projects)
+      (message "Eglot disabled for %s" root))))
+
+(advice-add 'eglot-ensure :before-until #'d-qoi/disable-eglot-advice)
+
+(advice-add 'eglot-format :before-until #'d-qoi/disable-eglot-advice)
 
 (defun eglot-format-buffer-on-save ()
   (add-hook 'before-save-hook 'eglot-format-buffer -10 t))
@@ -35,6 +48,7 @@
 (use-package yasnippet
   :straight (yasnippet :host github :repo "joaotavora/yasnippet")
   :demand t
+  :diminish
   :hook (prog-mode . yas-minor-mode))
 
 (use-package yasnippet-snippets
@@ -45,6 +59,7 @@
 (use-package company
   :straight t
   :demand t
+  :diminish
   :after orderless
   :bind
   (("C-c C-/" . company-other-backend)

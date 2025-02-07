@@ -18,9 +18,9 @@
   :mode ("\\.org$" . org-mode)
   :demand t
   :bind
-  ("C-c a a" . org-agenda)
-  ("C-c a l" . org-store-link)
-  ("C-c a c" . org-capture)
+  ("C-x a a" . org-agenda)
+  ("C-x a l" . org-store-link)
+  ("C-x a c" . org-capture)
   :init
   (unless (file-exists-p *org-agenda-file-default*)
     (make-empty-file *org-agenda-file-default*))

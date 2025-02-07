@@ -106,7 +106,11 @@
 
 ;; and a prompt to save all unsaved customizations
 (add-hook 'kill-emacs-query-functions
-	  'custom-prompt-customize-unsaved-options)
+	      'custom-prompt-customize-unsaved-options)
+
+;; Abbrev mode remapping
+(define-key ctl-x-map "a" nil)
+(define-key mode-specific-map "a" abbrev-map)
 
 (provide 'init-defaults)
 ;;; setup-general.el ends here
