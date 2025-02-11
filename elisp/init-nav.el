@@ -2,6 +2,7 @@
 
 (require 'use-package)
 (require 'dired+)
+(require 'find-dired+)
 
 (use-package dired
   :straight (:type built-in)
