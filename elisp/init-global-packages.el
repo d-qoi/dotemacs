@@ -358,6 +358,7 @@
   (aw-dispatch-always t))
 
 (use-package activities
+  :disabled
   :straight (:host github :repo "alphapapa/activities.el")
   :demand t
   :init
@@ -374,6 +375,27 @@
    ("C-x t C-b" . activities-switch-buffer)
    ("C-x t g" . activities-revert)
    ("C-x t l" . activities-list)))
+
+(use-package perspective
+  :straight (:type git :host github :repo "nex3/perspective-el")
+  :after consult
+  :bind
+  (("C-x C-b" . persp-list-buffers)         ; or use a nicer switcher, see below
+   :map perspective-map
+   ("TAB" . persp-switch))
+  :custom
+  (persp-mode-prefix-key (kbd "C-c TAB"))  ; pick your own prefix key here
+  :init
+  (add-hook 'ibuffer-hook
+          (lambda ()
+            (persp-ibuffer-set-filter-groups)
+            (unless (eq ibuffer-sorting-mode 'alphabetic)
+              (ibuffer-do-sort-by-alphabetic))))
+
+  (consult-customize consult--source-buffer :hidden t :default nil)
+  (add-to-list 'consult-buffer-sources persp-consult-source)
+  :config
+  (persp-mode))
 
 (defun d-qoi/devil-find-special-advice (retval)
   "Hide which key popup when devil find special is activated"

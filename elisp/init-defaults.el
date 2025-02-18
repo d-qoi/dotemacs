@@ -63,7 +63,7 @@
 
 ;; ibuffer buffer list
 (global-set-key (kbd "C-x B") 'ibuffer-list-buffers)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+;(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; paragraph navigation
 (global-unset-key (kbd "M-}"))
@@ -93,8 +93,8 @@
 ;; ttm menu bind again
 (global-set-key (kbd "C-z t") 'tmm-menubar)
 
-(require 'tab-bar)
-(keymap-set tab-prefix-map "TAB" #'tab-next)
+;(require 'tab-bar)
+;(keymap-set tab-prefix-map "TAB" #'tab-next)
 
 (require 'proced)
 (add-hook 'proced-mode-hook (lambda () (proced-toggle-auto-update 1)))
