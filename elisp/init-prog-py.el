@@ -33,11 +33,7 @@
    `((python-mode python-ts-mode) .
      ,(eglot-alternatives
        '(("pyright-langserver" "--stdio") "pylsp" "pyls" "jedi-language-server")))
-   eglot-server-programs)
-  :config
-  (if *ipython*
-      (setq python-shell-interpreter "ipython"
-            python-shell-interpreter-args "-i --simple-prompt --InteractiveShell.display_page=True")))
+   eglot-server-programs))
 
 ;; TODO: Switch this to emacs-pet?
 ;; (use-package pyvenv
