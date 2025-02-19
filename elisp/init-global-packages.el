@@ -385,7 +385,7 @@
    ("TAB" . persp-switch))
   :custom
   (persp-mode-prefix-key (kbd "C-c TAB"))  ; pick your own prefix key here
-  :init
+  :config
   (add-hook 'ibuffer-hook
           (lambda ()
             (persp-ibuffer-set-filter-groups)
@@ -394,7 +394,6 @@
 
   (consult-customize consult--source-buffer :hidden t :default nil)
   (add-to-list 'consult-buffer-sources persp-consult-source)
-  :config
   (persp-mode))
 
 (defun d-qoi/devil-find-special-advice (retval)
