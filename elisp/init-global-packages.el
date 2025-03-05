@@ -3,9 +3,6 @@
 
 (require 'use-package)
 
-(use-package diminish
-  :straight t)
-
 (use-package f
   :straight t)
 
@@ -378,14 +375,15 @@
 
 (use-package perspective
   :straight (:type git :host github :repo "nex3/perspective-el")
-  :after consult
+  :demand t
   :bind
   (("C-x C-b" . persp-list-buffers)         ; or use a nicer switcher, see below
    :map perspective-map
    ("TAB" . persp-switch))
   :custom
   (persp-mode-prefix-key (kbd "C-c TAB"))  ; pick your own prefix key here
-  :config
+  :init
+  (persp-mode)
   (add-hook 'ibuffer-hook
           (lambda ()
             (persp-ibuffer-set-filter-groups)
@@ -393,8 +391,7 @@
               (ibuffer-do-sort-by-alphabetic))))
 
   (consult-customize consult--source-buffer :hidden t :default nil)
-  (add-to-list 'consult-buffer-sources persp-consult-source)
-  (persp-mode))
+  (add-to-list 'consult-buffer-sources persp-consult-source))
 
 (defun d-qoi/devil-find-special-advice (retval)
   "Hide which key popup when devil find special is activated"

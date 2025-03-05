@@ -43,6 +43,9 @@
   (straight-use-package 'use-package))
 (setq use-package-verbose t)
 
+(use-package diminish
+  :straight t)
+
 (if (require 'eglot nil t)
     (straight-use-package '(eglot :type built-in))
   (straight-use-package 'eglot))

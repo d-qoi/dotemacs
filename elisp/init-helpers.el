@@ -3,6 +3,7 @@
 (require 'find-lisp)
 (require 'autoload)
 (require 'cl)
+(require 'doremi)
 
 (defun d-qoi/remove-from-list ()
   "Remove an element by index from any list. It may faulter on duplicates."
@@ -88,5 +89,21 @@
    ((term-in-char-mode)
     (term-line-mode)
     (hl-line-mode 1))))
+
+(defun d-qoi/doremi-for-var (sym &optional increment)
+  "Call doremi on sym, with a default value of the symbol's value,
+and increment by increment"
+  (interactive
+   (list (intern (completing-read "Symbol: " obarray
+                                  (lambda (s)
+                                    (and (boundp s)
+                                         (integerp (symbol-value s))))
+                                  t))))
+  (when-let* ((initial-value (symbol-value sym))
+              ((numberp initial-value))
+              (incr (or increment current-prefix-arg 1)))
+    (doremi (lambda (inc) (set sym inc) inc)
+            initial-value
+            incr)))
 
 (provide 'init-helpers)

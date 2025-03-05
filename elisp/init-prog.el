@@ -54,6 +54,7 @@
 (use-package yasnippet-snippets
   :straight (yasnippet-snippets :host github :repo "AndreaCrotti/yasnippet-snippets")
   :demand t
+  :diminish
   :after yasnippet)
 
 (use-package company

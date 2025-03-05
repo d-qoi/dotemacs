@@ -5,3 +5,4 @@
 
 alias emacsdaemon="emacs --daemon"
 alias emax="emacsclient -c"
+alias remote_copy_term_info='f() { infocmp -x | ssh "$1" -- tic -x -; }; f'
