@@ -384,11 +384,7 @@
   (persp-mode-prefix-key (kbd "C-c TAB"))  ; pick your own prefix key here
   :init
   (persp-mode)
-  (add-hook 'ibuffer-hook
-          (lambda ()
-            (persp-ibuffer-set-filter-groups)
-            (unless (eq ibuffer-sorting-mode 'alphabetic)
-              (ibuffer-do-sort-by-alphabetic))))
+  (add-hook 'ibuffer-hook (lambda () (persp-ibuffer-set-filter-groups)))
 
   (consult-customize consult--source-buffer :hidden t :default nil)
   (add-to-list 'consult-buffer-sources persp-consult-source))
