@@ -63,8 +63,8 @@
   :if *python-black*
   :after python
   :init
-  (add-hook python-mode-hook . python-black-on-save-mode-enable-dwim)
-  (add-hook python-ts-mode-hook . python-black-on-save-mode-enable-dwim))
+  (add-hook 'python-mode-hook 'python-black-on-save-mode-enable-dwim)
+  (add-hook 'python-ts-mode-hook 'python-black-on-save-mode-enable-dwim))
 
 (use-package ipython-shell-send
   :disabled
