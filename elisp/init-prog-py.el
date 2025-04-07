@@ -12,6 +12,7 @@
   (remove nil (list
                (executable-find "pylsp")
                (executable-find "jedi-language-server")
+               (executable-find "basedpyright-langserver")
                (executable-find "pyright-langserver")))
   "Find the Python language servers that are available"
   :group 'python)
@@ -29,10 +30,13 @@
 (use-package python
   :straight (:type built-in)
   :init
+  (add-to-list 'eglot-server-programs
+            '((python-mode python-ts-mode)
+            ))
   (push
    `((python-mode python-ts-mode) .
      ,(eglot-alternatives
-       '(("pyright-langserver" "--stdio") "pylsp" "pyls" "jedi-language-server")))
+       '(("basedpyright-langserver" "--stdio") ("pyright-langserver" "--stdio") "pylsp" "pyls" "jedi-language-server")))
    eglot-server-programs))
 
 ;; TODO: Switch this to emacs-pet?
@@ -58,7 +62,9 @@
   :straight t
   :if *python-black*
   :after python
-  :hook (python-base-mode . python-black-on-save-mode-enable-dwim))
+  :init
+  (add-hook python-mode-hook . python-black-on-save-mode-enable-dwim)
+  (add-hook python-ts-mode-hook . python-black-on-save-mode-enable-dwim))
 
 (use-package ipython-shell-send
   :disabled

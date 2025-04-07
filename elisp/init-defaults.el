@@ -42,8 +42,8 @@
 (global-set-key (kbd "C-c w") 'whitespace-mode)
 
 (when (fboundp 'windmove-default-keybindings)
-  (windmove-default-keybindings)
-  (setq framemove-hook-into-windmove t))
+  (windmove-default-keybindings))
+  ;; (setq framemove-hook-into-windmove t))
 
 (winner-mode 1)
 
