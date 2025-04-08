@@ -4,6 +4,9 @@
 (require 'dired+)
 (require 'find-dired+)
 
+(use-package journalctl-mode
+  :straight t)
+
 (use-package dired
   :straight (:type built-in)
   :bind
