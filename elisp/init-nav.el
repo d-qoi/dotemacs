@@ -44,4 +44,14 @@
 (use-package docker
   :straight t)
 
+(defun d-qoi/neotree-here ()
+  (interactive)
+  (neotree-dir default-directory))
+
+(use-package neotree
+  :straight t
+  :bind
+  ([f8] . neotree-toggle)
+  ("C-<f8>" . d-qoi/neotree-here))
+
 (provide 'init-nav)
