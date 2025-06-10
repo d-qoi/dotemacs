@@ -54,4 +54,9 @@
   ([f8] . neotree-toggle)
   ("C-<f8>" . d-qoi/neotree-here))
 
+(use-package envrc
+  :straight t
+  :if (executable-find "envrc")
+  :hook (after-init . envrc-global-mode))
+
 (provide 'init-nav)

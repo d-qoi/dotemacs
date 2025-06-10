@@ -1,5 +1,4 @@
 ;; -*- lexical-binding: t -*-
-
 (require 'use-package)
 
 ;; show unncessary whitespace that can mess up your diff
@@ -159,5 +158,17 @@
   :bind (:map prog-mode-map
               ("M-<down>" . move-text-down)
               ("M-<up>" . move-text-up)))
+
+
+(use-package devcontainer-mode
+  :straight (devcontainer-mode :type git :host github :repo "johannes-mueller/devcontainer-mode"))
+
+
+(defun devcontainer-eat ()
+  (interactive)
+  (if (devcontainer-is-up)
+      (let ((program-string (format "devcontainer exec %s bash" (devcontainer--workspace-folder))))
+        (eat program-string "devcontainer"))
+    (user-error "devcontainer not running")))
 
 (provide 'init-prog)

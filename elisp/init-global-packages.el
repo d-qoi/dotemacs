@@ -419,4 +419,7 @@
   :bind
   (("C-c s" . rg-menu)))
 
+(use-package journalctl-mode
+  :straight t)
+
 (provide 'init-global-packages)

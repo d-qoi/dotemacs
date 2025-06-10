@@ -63,11 +63,9 @@
 (require 'init-prog-markup)
 (require 'init-prog-c)
 (require 'init-prog-rust)
-(require 'init-prog-cmake)
 (require 'init-prog-go)
 (require 'init-prog-py)
 (require 'init-prog-web)
-(require 'init-prog-just)
 
 ;; Other things
 (require 'init-ai)
