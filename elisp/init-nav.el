@@ -7,6 +7,11 @@
 (use-package journalctl-mode
   :straight t)
 
+(use-package rg
+  :straight t
+  :bind
+  (("C-c s" . rg-menu)))
+
 (use-package dired
   :straight (:type built-in)
   :bind

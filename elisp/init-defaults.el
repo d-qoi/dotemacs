@@ -112,5 +112,8 @@
 (define-key ctl-x-map "a" nil)
 (define-key mode-specific-map "a" abbrev-map)
 
+;; Repeat mode enable
+(repeat-mode 1)
+
 (provide 'init-defaults)
 ;;; setup-general.el ends here

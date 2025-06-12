@@ -28,6 +28,12 @@
   :config
   (which-key-mode))
 
+(use-package repeat-help
+  :straight t
+  :hook (repeat-mode . repeat-help-mode)
+  :custom
+  (repeat-help-auto t))
+
 (use-package vertico
   :straight (vertico :files (:defaults "extensions/*")
                      :includes (vertico-indexed
@@ -354,25 +360,6 @@
   :custom
   (aw-dispatch-always t))
 
-(use-package activities
-  :disabled
-  :straight (:host github :repo "alphapapa/activities.el")
-  :demand t
-  :init
-  (activities-mode)
-  (activities-tabs-mode)
-
-  :bind
-  (("C-x t C-n" . activities-new)
-   ("C-x t C-d" . activities-define)
-   ("C-x t C-a" . activities-resume)
-   ("C-x t C-s" . activities-suspend)
-   ("C-x t C-k" . activities-kill)
-   ("C-x t RET" . activities-switch)
-   ("C-x t C-b" . activities-switch-buffer)
-   ("C-x t g" . activities-revert)
-   ("C-x t l" . activities-list)))
-
 (use-package perspective
   :straight (:type git :host github :repo "nex3/perspective-el")
   :demand t
@@ -413,13 +400,5 @@
   (global-set-key (kbd "C-|") 'global-devil-mode)
   (advice-add 'devil--find-special-command :filter-return #'d-qoi/devil-find-special-advice)
   (advice-add 'devil--find-regular-command :after #'d-qoi/devil-find-regular-advice))
-
-(use-package rg
-  :straight t
-  :bind
-  (("C-c s" . rg-menu)))
-
-(use-package journalctl-mode
-  :straight t)
 
 (provide 'init-global-packages)

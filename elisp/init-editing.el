@@ -21,7 +21,11 @@
          ("M-z s p" . mc/mark-previous-like-this-symbol)
          ("M-z m" . mc/mark-pop)
          ("M-z u n" . mc/unmark-next-like-this)
-         ("M-z u p" . mc/unmark=previous-like-this)))
+         ("M-z u p" . mc/unmark=previous-like-this)
+         :repeat-map d-qoi/mc/repeat-mark-map
+         ("n" . mc/mark-next-like-this)
+         ("p" . mc/mark-previous-like-this)
+         ("m" . mc/mark-pop)))
 
 (use-package visual-replace
   :straight (:host github :repo "szermatt/visual-replace")
@@ -30,17 +34,6 @@
   (define-key query-replace-map "p" 'backup)
   (define-key query-replace-map "P" 'backup)
   (visual-replace-global-mode 1))
-
-(use-package anzu
-  :disabled
-  :straight t
-  :diminish
-  :bind
-  (("C-z q r" . anzu-query-replace)
-   ("C-z q R" . anzu-query-replace-regexp)
-   ("C-z q ." . anzu-replace-at-cursor-thing))
-  :config
-  (global-anzu-mode 1))
 
 (use-package wgrep
   :straight (:repo "mhayashi1120/Emacs-wgrep"))
