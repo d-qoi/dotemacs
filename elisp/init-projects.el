@@ -47,7 +47,13 @@ variable `project-local-identifier' to be considered a project."
   :straight t
   :after transient
   :demand t
-  :bind ("C-x g" . magit-status))
+  :bind (("C-x g" . magit-status)
+         :repeat-map smerge-repeat-map
+         ("n" . smerge-next)
+         ("p" . smerge-prev)
+         ("u" . smerge-keep-upper)
+         ("l" . smerge-keep-lower)
+         ("b" . smerge-keep-base)))
   ;; :init
   ;; (d-qoi/add-hook-after
   ;;  'magit-status-sections-hook
